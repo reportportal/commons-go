@@ -35,3 +35,5 @@ vendor/*/
 
 ## Data
 data/
+
+coverage.txt

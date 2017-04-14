@@ -16,7 +16,7 @@ help:
 	@echo "checkstyle - gofmt+golint+misspell"
 
 vendor: ## Install govendor and sync Hugo's vendored dependencies
-	go get github.com/kardianos/govendor
+	go get -u github.com/kardianos/govendor
 	govendor sync
 
 get-build-deps: vendor
@@ -24,7 +24,7 @@ get-build-deps: vendor
 	gometalinter --install
 
 test: vendor
-	govendor test +local
+	./gotest.sh
 
 checkstyle: get-build-deps
 	gometalinter --vendor ./... --fast --disable=gas --disable=errcheck --disable=gotype --deadline 10m
