@@ -1,0 +1,26 @@
+package commons
+
+import (
+	"testing"
+	"net/http/httptest"
+	"net/http"
+	"strings"
+)
+
+func TestBuildInfo(t *testing.T) {
+
+	Build.Name = "test"
+	rr := httptest.NewRecorder()
+	e := WriteJSON(http.StatusOK, Build, rr)
+	// Check the status code is what we expect.
+	if nil != e {
+		t.Error("Something went wrong with serialization")
+	}
+
+	expected := `{"name":"test"}`
+	if strings.TrimSpace(rr.Body.String()) != expected {
+		t.Errorf("incorrect build format response: got %v want %v",
+			rr.Body.String(), expected)
+	}
+
+}

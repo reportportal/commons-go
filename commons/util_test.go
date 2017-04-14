@@ -7,6 +7,10 @@ import (
 	"sort"
 	"testing"
 	"time"
+	"net"
+	"regexp"
+	"os"
+	"os/signal"
 )
 
 func TestKeySet(t *testing.T) {
@@ -38,4 +42,19 @@ func TestRetryAttempts(t *testing.T) {
 	if 2 != i {
 		t.Errorf("Incorrect attempts count: %d", i)
 	}
+}
+
+func TestGetLocalIP(t *testing.T) {
+
+	ip := net.ParseIP(GetLocalIP())
+	if ip.IsLoopback() {
+		t.Errorf("IP is loopback: %s", ip.String())
+	}
+
+	if !regexp.MustCompile("\\d+\\.\\d+\\.\\d+\\.\\d+").MatchString(ip.String()) {
+		t.Errorf("Incorrect IP format: %s", ip.String())
+	}
+
+	print(ip.String())
+	print()
 }

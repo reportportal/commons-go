@@ -3,7 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/reportportal/goRP/commons"
+	"github.com/reportportal/commons-go/commons"
 	"net/http"
 	"strings"
 	"time"
