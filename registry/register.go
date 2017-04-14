@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/reportportal/goRP/commons"
+	"github.com/reportportal/commons-go/commons"
 )
 
 const (

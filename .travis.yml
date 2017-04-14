@@ -7,5 +7,5 @@ script:
   - make build
 
 after_success:
- - curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/reportportal/goRP"
+ - curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/reportportal/commons-go"
  - bash <(curl -s https://codecov.io/bash)

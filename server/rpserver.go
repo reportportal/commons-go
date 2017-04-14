@@ -1,12 +1,12 @@
 package server
 
 import (
-	"github.com/reportportal/goRP/conf"
-	"github.com/reportportal/goRP/registry"
+	"github.com/reportportal/commons-go/conf"
+	"github.com/reportportal/commons-go/registry"
 	"goji.io"
 	"goji.io/pat"
 
-	"github.com/reportportal/goRP/commons"
+	"github.com/reportportal/commons-go/commons"
 	"log"
 	"net/http"
 	"strconv"

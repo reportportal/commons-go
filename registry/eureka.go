@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/hudl/fargo"
-	"github.com/reportportal/goRP/commons"
-	"github.com/reportportal/goRP/conf"
+	"github.com/reportportal/commons-go/commons"
+	"github.com/reportportal/commons-go/conf"
 )
 
 type eurekaClient struct {

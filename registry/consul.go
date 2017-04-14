@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/hashicorp/consul/api"
-	"github.com/reportportal/goRP/commons"
-	"github.com/reportportal/goRP/conf"
+	"github.com/reportportal/commons-go/commons"
+	"github.com/reportportal/commons-go/conf"
 	"strings"
 )
 
