@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/avarabyeu/goRP/commons"
+	"github.com/reportportal/goRP/commons"
 )
 
 const (

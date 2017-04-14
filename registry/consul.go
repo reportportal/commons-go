@@ -5,8 +5,8 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/avarabyeu/goRP/commons"
-	"github.com/avarabyeu/goRP/conf"
+	"github.com/reportportal/goRP/commons"
+	"github.com/reportportal/goRP/conf"
 	"github.com/hashicorp/consul/api"
 	"strings"
 )

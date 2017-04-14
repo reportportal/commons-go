@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/avarabyeu/goRP/commons"
-	"github.com/avarabyeu/goRP/conf"
+	"github.com/reportportal/goRP/commons"
+	"github.com/reportportal/goRP/conf"
 	"github.com/gorilla/handlers"
 	"goji.io"
 	"goji.io/pat"

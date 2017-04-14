@@ -1,12 +1,12 @@
 package server
 
 import (
-	"github.com/avarabyeu/goRP/conf"
-	"github.com/avarabyeu/goRP/registry"
+	"github.com/reportportal/goRP/conf"
+	"github.com/reportportal/goRP/registry"
 	"goji.io"
 	"goji.io/pat"
 
-	"github.com/avarabyeu/goRP/commons"
+	"github.com/reportportal/goRP/commons"
 	"log"
 	"net/http"
 	"strconv"
