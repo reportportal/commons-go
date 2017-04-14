@@ -7,10 +7,7 @@ GO = go
 BINARY_DIR=bin
 
 BUILD_DEPS:= github.com/alecthomas/gometalinter
-GODIRS_NOVENDOR = $(shell go list ./... | grep -v /vendor/)
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
-PACKAGE_COMMONS=github.com/avarabyeu/goRP
-BUILD_INFO_LDFLAGS=-ldflags "-X ${PACKAGE_COMMONS}/commons.Branch=${COMMIT_HASH} -X ${PACKAGE_COMMONS}/commons.BuildDate=${BUILD_DATE} -X ${PACKAGE_COMMONS}/commons.Version=${v}"
 
 .PHONY: vendor test build
 
@@ -39,11 +36,6 @@ fmt:
 # Builds the project
 build: checkstyle test
 	govendor build +local
-
-# Builds containers
-docker: build
-	docker build -t gorproot -f gorpRoot/Dockerfile .
-	docker build -t gorpui -f gorpUI/Dockerfile .
 
 clean:
 	if [ -d ${BINARY_DIR} ] ; then rm -r ${BINARY_DIR} ; fi
