@@ -9,8 +9,6 @@ import (
 	"time"
 	"net"
 	"regexp"
-	"os"
-	"os/signal"
 )
 
 func TestKeySet(t *testing.T) {
