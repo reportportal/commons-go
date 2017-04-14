@@ -7,7 +7,6 @@ GO = go
 BINARY_DIR=bin
 
 BUILD_DEPS:= github.com/alecthomas/gometalinter
-GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 
 .PHONY: vendor test build
 
@@ -31,7 +30,7 @@ checkstyle: get-build-deps
 	gometalinter --vendor ./... --fast --disable=gas --disable=errcheck --disable=gotype --deadline 10m
 
 fmt:
-	gofmt -l -w -s ${GOFILES_NOVENDOR}
+	govendor fmt +local
 
 # Builds the project
 build: checkstyle test

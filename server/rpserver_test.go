@@ -1,9 +1,9 @@
 package server
 
 import (
+	"github.com/gorilla/handlers"
 	"github.com/reportportal/goRP/commons"
 	"github.com/reportportal/goRP/conf"
-	"github.com/gorilla/handlers"
 	"goji.io"
 	"goji.io/pat"
 	"net/http"

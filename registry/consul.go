@@ -5,9 +5,9 @@ import (
 	"log"
 	"strconv"
 
+	"github.com/hashicorp/consul/api"
 	"github.com/reportportal/goRP/commons"
 	"github.com/reportportal/goRP/conf"
-	"github.com/hashicorp/consul/api"
 	"strings"
 )
 

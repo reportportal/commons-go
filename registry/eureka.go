@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/hudl/fargo"
 	"github.com/reportportal/goRP/commons"
 	"github.com/reportportal/goRP/conf"
-	"github.com/hudl/fargo"
 )
 
 type eurekaClient struct {
