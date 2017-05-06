@@ -1,13 +1,12 @@
 package registry
 
 import (
-	"log"
-	"strconv"
-	"time"
-
 	"github.com/hudl/fargo"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
+	"log"
+	"strconv"
+	"time"
 )
 
 type eurekaClient struct {

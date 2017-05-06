@@ -1,16 +1,15 @@
 package commons
 
-
 var (
 	// Branch contains the current Git revision. Use make to build to make
 	// sure this gets set.
-	branch string = ""
+	branch string
 
 	// BuildDate contains the date of the current build.
-	buildDate string = ""
+	buildDate string
 
 	// Version contains version
-	version string = ""
+	version string
 )
 
 // BuildInfo contains information about the current Hugo environment

@@ -2,12 +2,11 @@ package registry
 
 import (
 	"fmt"
-	"log"
-	"strconv"
-
 	"github.com/hashicorp/consul/api"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
+	"log"
+	"strconv"
 	"strings"
 )
 

@@ -1,10 +1,9 @@
 package registry
 
 import (
+	"github.com/reportportal/commons-go/commons"
 	"log"
 	"time"
-
-	"github.com/reportportal/commons-go/commons"
 )
 
 const (

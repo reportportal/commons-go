@@ -49,7 +49,7 @@ func TestGetLocalIP(t *testing.T) {
 		t.Errorf("IP is loopback: %s", ip.String())
 	}
 
-	if !regexp.MustCompile("\\d+\\.\\d+\\.\\d+\\.\\d+").MatchString(ip.String()) {
+	if !regexp.MustCompile(`\d+\.\d+\.\d+\.\d+`).MatchString(ip.String()) {
 		t.Errorf("Incorrect IP format: %s", ip.String())
 	}
 

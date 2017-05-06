@@ -5,6 +5,7 @@ BUILD_DATE = `date +%FT%T%z`
 
 GO = go
 BINARY_DIR=bin
+GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 
 BUILD_DEPS:= github.com/alecthomas/gometalinter
 
