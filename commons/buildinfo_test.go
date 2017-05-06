@@ -1,10 +1,10 @@
 package commons
 
 import (
-	"testing"
-	"net/http/httptest"
 	"net/http"
+	"net/http/httptest"
 	"strings"
+	"testing"
 )
 
 func TestBuildInfo(t *testing.T) {

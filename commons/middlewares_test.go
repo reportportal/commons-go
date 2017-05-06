@@ -1,10 +1,10 @@
 package commons
 
 import (
-	"testing"
+	"goji.io"
 	"net/http"
 	"net/http/httptest"
-	"goji.io"
+	"testing"
 )
 
 func TestNoHandlerFound(t *testing.T) {

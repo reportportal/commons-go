@@ -22,8 +22,6 @@ type RpServer struct {
 //New creates new instance of RpServer struct
 func New(cfg *conf.RpConfig) *RpServer {
 
-	log.Println(commons.Build)
-
 	var sd registry.ServiceDiscovery
 	switch cfg.Registry {
 	case conf.Eureka:

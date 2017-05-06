@@ -1,10 +1,10 @@
 package commons
 
 import (
-	"testing"
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"testing"
 )
 
 func TestWriteJSON(t *testing.T) {

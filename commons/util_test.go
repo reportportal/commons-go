@@ -3,12 +3,12 @@ package commons
 import (
 	"errors"
 	"log"
+	"net"
 	"reflect"
+	"regexp"
 	"sort"
 	"testing"
 	"time"
-	"net"
-	"regexp"
 )
 
 func TestKeySet(t *testing.T) {
