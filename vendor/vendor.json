@@ -33,10 +33,10 @@
 			"revisionTime": "2017-02-24T19:39:55Z"
 		},
 		{
-			"checksumSHA1": "cSRa/yOduLtohycBodz5zVI4hmM=",
+			"checksumSHA1": "iGAHizBUN43QlmYmn1bPLlNN9pw=",
 			"path": "github.com/hashicorp/consul/api",
-			"revision": "271189aa70350fd13c848615dfd6e2c91a9ffe68",
-			"revisionTime": "2017-04-14T03:11:06Z"
+			"revision": "1979f40cf1164d0d4cfaf5bf5fcae21a11cebe2a",
+			"revisionTime": "2017-05-05T16:01:32Z"
 		},
 		{
 			"checksumSHA1": "b8F628srIitj5p7Y130xc9k0QWs=",
@@ -44,6 +44,12 @@
 			"path": "github.com/hashicorp/go-cleanhttp",
 			"revision": "271189aa70350fd13c848615dfd6e2c91a9ffe68",
 			"revisionTime": "2017-04-14T03:11:06Z"
+		},
+		{
+			"checksumSHA1": "A1PcINvF3UiwHRKn8UcgARgvGRs=",
+			"path": "github.com/hashicorp/go-rootcerts",
+			"revision": "6bb64b370b90e7ef1fa532be9e591a81c3493e00",
+			"revisionTime": "2016-05-03T14:34:40Z"
 		},
 		{
 			"checksumSHA1": "Ok3Csn6Voou7pQT6Dv2mkwpqFtw=",
@@ -123,6 +129,12 @@
 			"path": "github.com/miekg/dns",
 			"revision": "6ebcb714d36901126ee2807031543b38c56de963",
 			"revisionTime": "2017-04-12T18:47:48Z"
+		},
+		{
+			"checksumSHA1": "V/quM7+em2ByJbWBLOsEwnY3j/Q=",
+			"path": "github.com/mitchellh/go-homedir",
+			"revision": "b8bc1bf767474819792c23f32d8286a45736f1c6",
+			"revisionTime": "2016-12-03T19:45:07Z"
 		},
 		{
 			"checksumSHA1": "MlX15lJuV8DYARX5RJY8rqrSEWQ=",
@@ -221,7 +233,7 @@
 			"revisionTime": "2017-04-13T17:15:43Z"
 		},
 		{
-			"checksumSHA1": "ArDa4bMPKzhiS1I7iioemBwZ6tE=",
+			"checksumSHA1": "jRiEa4gFPrOdh1x6aqm7kXAXMWo=",
 			"path": "golang.org/x/sys/unix",
 			"revision": "f3918c30c5c2cb527c0b071a27c35120a6c0719a",
 			"revisionTime": "2017-04-05T16:58:12Z"
@@ -233,7 +245,7 @@
 			"revisionTime": "2017-03-31T22:43:49Z"
 		},
 		{
-			"checksumSHA1": "gYoNrZgxCQAHutg2rGHcFoKJtpA=",
+			"checksumSHA1": "cCdfq19OZBMVpK2zs73XdGpi1SU=",
 			"path": "golang.org/x/text/unicode/norm",
 			"revision": "f4b4367115ec2de254587813edaa901bc1c723a8",
 			"revisionTime": "2017-03-31T22:43:49Z"

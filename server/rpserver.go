@@ -20,7 +20,7 @@ type RpServer struct {
 }
 
 //New creates new instance of RpServer struct
-func New(cfg *conf.RpConfig) *RpServer {
+func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 
 	var sd registry.ServiceDiscovery
 	switch cfg.Registry {
@@ -41,9 +41,8 @@ func New(cfg *conf.RpConfig) *RpServer {
 		commons.WriteJSON(200, map[string]string{"status": "UP"}, w)
 	})
 
-	commons.Build.Name = cfg.AppName
 	srv.mux.HandleFunc(pat.Get("/info"), func(w http.ResponseWriter, rq *http.Request) {
-		commons.WriteJSON(200, commons.Build, w)
+		commons.WriteJSON(200, buildInfo, w)
 
 	})
 	return srv

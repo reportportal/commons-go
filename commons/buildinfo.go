@@ -3,17 +3,14 @@ package commons
 var (
 	// Branch contains the current Git revision. Use make to build to make
 	// sure this gets set.
-	Branch string
+	branch string
 
 	// BuildDate contains the date of the current build.
-	BuildDate string
+	buildDate string
 
 	// Version contains version
-	Version string
+	version string
 )
-
-//Build is global BuildInfo var
-var Build *BuildInfo
 
 // BuildInfo contains information about the current Hugo environment
 type BuildInfo struct {
@@ -23,10 +20,11 @@ type BuildInfo struct {
 	Name      string `json:"name,omitempty"`
 }
 
-func init() {
-	Build = &BuildInfo{
-		Version:   Version,
-		Branch:    Branch,
-		BuildDate: BuildDate,
+// GetBuildInfo returns build info data
+func GetBuildInfo() *BuildInfo {
+	return &BuildInfo{
+		Version:   version,
+		Branch:    branch,
+		BuildDate: buildDate,
 	}
 }

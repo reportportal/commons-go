@@ -17,7 +17,7 @@ type Person struct {
 
 func ExampleRpServer() {
 	rpConf := conf.LoadConfig("../server.yaml", nil)
-	rp := New(rpConf)
+	rp := New(rpConf, commons.GetBuildInfo())
 
 	rp.AddRoute(func(router *goji.Mux) {
 		router.HandleFunc(pat.Get("/ping"), func(w http.ResponseWriter, rq *http.Request) {
@@ -34,7 +34,7 @@ func ExampleRpServer_StartServer() {
 	rpConf := conf.LoadConfig("../server.yaml",
 		map[string]interface{}{"AuthServerURL": "http://localhost:9998/sso/me"})
 
-	srv := New(rpConf)
+	srv := New(rpConf, commons.GetBuildInfo())
 
 	srv.AddRoute(func(mux *goji.Mux) {
 		mux.Use(func(next http.Handler) http.Handler {
