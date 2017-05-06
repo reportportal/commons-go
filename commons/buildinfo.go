@@ -1,5 +1,7 @@
 package commons
 
+import "expvar"
+
 var (
 	// Branch contains the current Git revision. Use make to build to make
 	// sure this gets set.
@@ -27,4 +29,10 @@ func GetBuildInfo() *BuildInfo {
 		Branch:    branch,
 		BuildDate: buildDate,
 	}
+}
+
+func init() {
+	expvar.Publish("build", expvar.Func(func() interface{} {
+		return GetBuildInfo()
+	}))
 }
