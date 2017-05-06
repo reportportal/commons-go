@@ -12,7 +12,7 @@ var (
 	version string
 )
 
-// BuildInfo contains information about the current Hugo environment
+// BuildInfo contains information about the current build
 type BuildInfo struct {
 	Version   string `json:"version,omitempty"`
 	Branch    string `json:"branch,omitempty"`
