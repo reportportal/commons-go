@@ -13,7 +13,30 @@ import (
 //HTTP is protocol prefix constant
 const HTTP = "http://"
 
-//Retry executed callback func until it executes successfully
+//Schedule executes callback func with some period.
+//no delays force callback to execute first time immediately
+//Function returns channel to stop scheduled execution
+func Schedule(timeout time.Duration, noDelay bool, callback func()) chan<- struct{} {
+	ticker := time.NewTicker(timeout)
+	quit := make(chan struct{})
+	go func() {
+		if noDelay {
+			callback()
+		}
+		for {
+			select {
+			case <-ticker.C:
+				callback()
+			case <-quit:
+				ticker.Stop()
+				return
+			}
+		}
+	}()
+	return quit
+}
+
+//Retry executes callback func until it executes successfully
 func Retry(attempts int, timeout time.Duration, callback func() error) (err error) {
 	for i := 0; i <= attempts-1; i++ {
 		err = callback()

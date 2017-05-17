@@ -29,6 +29,19 @@ func TestKeySet(t *testing.T) {
 	}
 }
 
+func TestSchedule(t *testing.T) {
+	i := 0
+	quite := Schedule(1*time.Second, true, func() {
+		i++
+	})
+	time.Sleep(2 * time.Second)
+	quite <- struct{}{}
+
+	if i == 0 {
+		t.Errorf("Incorrect execution count: %d", i)
+	}
+}
+
 func TestRetryAttempts(t *testing.T) {
 	i := 0
 	Retry(2, 1*time.Second, func() error {
