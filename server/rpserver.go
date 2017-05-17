@@ -40,8 +40,9 @@ func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 		commons.WriteJSON(200, map[string]string{"status": "UP"}, w)
 	})
 
+	bi := map[string]interface{}{"build": buildInfo}
 	srv.mux.HandleFunc(pat.Get("/info"), func(w http.ResponseWriter, rq *http.Request) {
-		commons.WriteJSON(200, buildInfo, w)
+		commons.WriteJSON(200, bi, w)
 
 	})
 	return srv
