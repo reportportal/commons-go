@@ -6,6 +6,7 @@ BUILD_DATE = `date +%FT%T%z`
 GO = go
 BINARY_DIR=bin
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
+PACKAGES_NOVENDOR = $(shell glide novendor)
 
 BUILD_DEPS:= github.com/alecthomas/gometalinter
 
@@ -35,8 +36,8 @@ fmt:
 	gofmt -l -w -s ${GOFILES_NOVENDOR}
 
 # Builds the project
-build: checkstyle test
-	go build $(glide novendor)
+build:
+	$(GO) build $(PACKAGES_NOVENDOR)
 
 clean:
 	if [ -d ${BINARY_DIR} ] ; then rm -r ${BINARY_DIR} ; fi
