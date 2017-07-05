@@ -36,7 +36,7 @@ fmt:
 
 # Builds the project
 build: checkstyle test
-	govendor build +local
+	go build $(glide novendor)
 
 clean:
 	if [ -d ${BINARY_DIR} ] ; then rm -r ${BINARY_DIR} ; fi
