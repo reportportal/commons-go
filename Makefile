@@ -36,7 +36,7 @@ fmt:
 	gofmt -l -w -s ${GOFILES_NOVENDOR}
 
 # Builds the project
-build:
+build: checkstyle test
 	$(GO) build $(PACKAGES_NOVENDOR)
 
 clean:
