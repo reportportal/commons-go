@@ -10,6 +10,9 @@ var (
 
 	// Version contains version
 	version string
+
+	// Version contains repository name
+	repo string
 )
 
 // BuildInfo contains information about the current build
@@ -18,6 +21,7 @@ type BuildInfo struct {
 	Branch    string `json:"branch,omitempty"`
 	BuildDate string `json:"build_date,omitempty"`
 	Name      string `json:"name,omitempty"`
+	Repo      string `json:"repo,omitempty"`
 }
 
 // GetBuildInfo returns build info data
@@ -26,5 +30,6 @@ func GetBuildInfo() *BuildInfo {
 		Version:   version,
 		Branch:    branch,
 		BuildDate: buildDate,
+		Repo: repo,
 	}
 }

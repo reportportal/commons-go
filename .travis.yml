@@ -4,7 +4,7 @@ go:
   - 1.8.1
 
 script:
-  - make build
+  - make vendor build
 
 after_success:
  - curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/reportportal/commons-go"

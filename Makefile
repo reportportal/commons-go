@@ -22,11 +22,11 @@ vendor:
 	cd $(GOPATH)/src/github.com/Masterminds/glide && git checkout tags/v0.12.3 && go install && cd -
 	glide install
 
-get-build-deps: vendor
+get-build-deps:
 	$(GO) get $(BUILD_DEPS)
 	gometalinter --install
 
-test: vendor
+test:
 	./gotest.sh
 
 checkstyle: get-build-deps
