@@ -1,10 +1,10 @@
 package conf
 
 import (
-	"os"
-	"testing"
 	"fmt"
+	"os"
 	"reflect"
+	"testing"
 )
 
 func TestLoadConfig(t *testing.T) {
@@ -38,7 +38,7 @@ func TestLoadConfigIncorrectFormat(t *testing.T) {
 }
 
 func TestLoadStringArray(t *testing.T) {
-	os.Setenv("RP_CONSUL.TAGS", "tag1,tag2,tag3")
+	os.Setenv("RP_CONSUL_TAGS", "tag1,tag2,tag3")
 	rpConf := LoadConfig("", nil)
 	rpConf.Consul.AddTags("tag4", "tag5")
 	fmt.Println(rpConf.Consul.Tags)

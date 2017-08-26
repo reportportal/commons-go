@@ -41,12 +41,12 @@ type ConsulConfig struct {
 	Tags         string
 }
 
-//ParseTags parses tags to string array
+//GetTags parses tags to string array
 func (c *ConsulConfig) GetTags() []string {
 	return strings.Split(c.Tags, ",")
 }
 
-//ParseTags parses tags to string array. Extremely slow implementation - simplicity over speed
+//AddTags parses tags to string array. Extremely slow implementation - simplicity over speed
 func (c *ConsulConfig) AddTags(tags ...string) {
 	curr := strings.Split(c.Tags, ",")
 	curr = append(curr, tags...)
@@ -79,7 +79,7 @@ func LoadConfig(file string, defaults map[string]interface{}) *RpConfig {
 	}
 
 	vpr.SetEnvPrefix("RP")
-	vpr.SetEnvKeyReplacer(strings.NewReplacer("._"))
+	vpr.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	vpr.AutomaticEnv()
 
 	applyDefaults(vpr)
@@ -146,6 +146,6 @@ func applyDefaults(vpr *viper.Viper) {
 	vpr.SetDefault("consul.address", "localhost:8500")
 	vpr.SetDefault("consul.scheme", "http")
 	vpr.SetDefault("consul.pollInterval", 5)
-	vpr.SetDefault("consul.tags", []string{})
+	vpr.SetDefault("consul.tags", "")
 
 }

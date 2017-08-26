@@ -30,6 +30,6 @@ func GetBuildInfo() *BuildInfo {
 		Version:   version,
 		Branch:    branch,
 		BuildDate: buildDate,
-		Repo: repo,
+		Repo:      repo,
 	}
 }
