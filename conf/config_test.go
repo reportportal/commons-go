@@ -3,6 +3,8 @@ package conf
 import (
 	"os"
 	"testing"
+	"fmt"
+	"reflect"
 )
 
 func TestLoadConfig(t *testing.T) {
@@ -32,5 +34,16 @@ func TestLoadConfigIncorrectFormat(t *testing.T) {
 	rpConf := LoadConfig("config_test.go", nil)
 	if 8080 != rpConf.Server.Port {
 		t.Error("Should return empty string for default config")
+	}
+}
+
+func TestLoadStringArray(t *testing.T) {
+	os.Setenv("RP_CONSUL.TAGS", "tag1,tag2,tag3")
+	rpConf := LoadConfig("", nil)
+	rpConf.Consul.AddTags("tag4", "tag5")
+	fmt.Println(rpConf.Consul.Tags)
+	expected := []string{"tag1", "tag2", "tag3", "tag4", "tag5"}
+	if !reflect.DeepEqual(expected, rpConf.Consul.GetTags()) {
+		t.Errorf("Incorrect array parameters parsing. Expected: %s, Actual: %s", expected, rpConf.Consul.Tags)
 	}
 }

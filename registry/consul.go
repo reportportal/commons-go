@@ -7,7 +7,6 @@ import (
 	"github.com/reportportal/commons-go/conf"
 	"log"
 	"strconv"
-	"strings"
 )
 
 type consulClient struct {
@@ -32,7 +31,7 @@ func NewConsul(cfg *conf.RpConfig) ServiceDiscovery {
 		Port:    cfg.Server.Port,
 		Address: commons.GetLocalIP(),
 		Name:    cfg.AppName,
-		Tags:    strings.Split(cfg.Consul.Tags, ","),
+		Tags:    cfg.Consul.GetTags(),
 		Check: &api.AgentServiceCheck{
 			HTTP:     baseURL + "/health",
 			Interval: fmt.Sprintf("%ds", cfg.Consul.PollInterval),

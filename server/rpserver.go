@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 //RpServer represents ReportPortal micro-service instance
@@ -26,7 +27,10 @@ func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 	case conf.Eureka:
 		sd = registry.NewEureka(cfg)
 	case conf.Consul:
-		cfg.Consul.Tags = cfg.Consul.Tags + ",statusPageUrlPath=/info" + "," + "healthCheckUrlPath=/health"
+		tags := cfg.Consul.GetTags()
+		tags = append(tags, "statusPageUrlPath=/info", "healthCheckUrlPath=/health")
+
+		cfg.Consul.Tags = strings.Join(tags, ",")
 		sd = registry.NewConsul(cfg)
 	}
 
