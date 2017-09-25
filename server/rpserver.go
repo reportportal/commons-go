@@ -1,10 +1,11 @@
 package server
 
 import (
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
 	"github.com/reportportal/commons-go/registry"
-	"github.com/go-chi/chi"
 	"log"
 	"net/http"
 	"strconv"
@@ -12,9 +13,10 @@ import (
 
 //RpServer represents ReportPortal micro-service instance
 type RpServer struct {
-	mux *chi.Mux
-	cfg *conf.RpConfig
-	Sd  registry.ServiceDiscovery
+	mux     *chi.Mux
+	cfg     *conf.RpConfig
+	Sd      registry.ServiceDiscovery
+	hChecks []HealthCheck
 }
 
 //New creates new instance of RpServer struct
@@ -30,13 +32,35 @@ func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 	}
 
 	srv := &RpServer{
-		mux: chi.NewMux(),
-		cfg: cfg,
-		Sd:  sd,
+		mux:     chi.NewMux(),
+		cfg:     cfg,
+		Sd:      sd,
+		hChecks: []HealthCheck{},
 	}
 
+	srv.mux.Use(middleware.Recoverer)
+
 	srv.mux.Get("/health", func(w http.ResponseWriter, rq *http.Request) {
-		commons.WriteJSON(200, map[string]string{"status": "UP"}, w)
+
+		//collect status results
+		errs := []string{}
+		for _, hc := range srv.hChecks {
+			if err := hc.Check(); nil != err {
+				errs = append(errs, err.Error())
+			}
+		}
+
+		rs := map[string]interface{}{}
+		status := http.StatusOK
+		if len(errs) > 0 {
+			rs["status"] = "DOWN"
+			rs["errors"] = errs
+			status = http.StatusBadRequest
+		} else {
+			rs["status"] = "UP"
+		}
+
+		commons.WriteJSON(status, rs, w)
 	})
 
 	bi := map[string]interface{}{"build": buildInfo}
@@ -50,6 +74,11 @@ func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 //AddRoute gives access to GIN router to add route and perform other modifications
 func (srv *RpServer) AddRoute(f func(router *chi.Mux)) {
 	f(srv.mux)
+}
+
+//AddHealthCheck adds health check
+func (srv *RpServer) AddHealthCheck(h HealthCheck) {
+	srv.hChecks = append(srv.hChecks, h)
 }
 
 //StartServer starts HTTP server

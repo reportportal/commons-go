@@ -1,12 +1,12 @@
 package server
 
 import (
+	"github.com/go-chi/chi"
 	"github.com/gorilla/handlers"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
 	"net/http"
 	"os"
-	"github.com/go-chi/chi"
 )
 
 type Person struct {

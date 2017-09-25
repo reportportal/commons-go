@@ -1,10 +1,11 @@
-package commons
+package server
 
 import (
+	"github.com/go-chi/chi"
+	"github.com/reportportal/commons-go/commons"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"github.com/go-chi/chi"
 )
 
 func TestNoHandlerFound(t *testing.T) {
@@ -17,13 +18,17 @@ func TestNoHandlerFound(t *testing.T) {
 
 	// We create a ResponseRecorder (which satisfies http.ResponseWriter) to record the response.
 	rr := httptest.NewRecorder()
-	notFoundHandler := NoHandlerFound(func(w http.ResponseWriter, rq *http.Request) {
+	notFoundHandler := func(w http.ResponseWriter, rq *http.Request) {
 		w.WriteHeader(404)
 		w.Write([]byte("not found"))
-	})
+	}
 
 	mux := chi.NewMux()
-	mux.Use(notFoundHandler)
+	mux.NotFound(notFoundHandler)
+	mux.Get("/fake", func(w http.ResponseWriter, rq *http.Request) {
+		commons.WriteJSON(200, map[string]string{"status": "OK"}, w)
+
+	})
 	mux.ServeHTTP(rr, req)
 
 	// Check the status code is what we expect.
@@ -50,13 +55,13 @@ func TestHandlerFound(t *testing.T) {
 
 	// We create a ResponseRecorder (which satisfies http.ResponseWriter) to record the response.
 	rr := httptest.NewRecorder()
-	notFoundHandler := NoHandlerFound(func(w http.ResponseWriter, rq *http.Request) {
+	notFoundHandler := func(w http.ResponseWriter, rq *http.Request) {
 		w.WriteHeader(404)
 		w.Write([]byte("not found"))
-	})
+	}
 
 	mux := chi.NewMux()
-	mux.Use(notFoundHandler)
+	mux.NotFound(notFoundHandler)
 	mux.HandleFunc("/health-check", func(w http.ResponseWriter, rq *http.Request) {
 		w.WriteHeader(400)
 		w.Write([]byte("some error"))

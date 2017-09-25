@@ -31,7 +31,7 @@ func NewConsul(cfg *conf.RpConfig) ServiceDiscovery {
 		Port:    cfg.Server.Port,
 		Address: commons.GetLocalIP(),
 		Name:    cfg.AppName,
-		Tags:    cfg.Consul.GetTags(),
+		Tags:    cfg.Consul.Tags,
 		Check: &api.AgentServiceCheck{
 			HTTP:     baseURL + "/health",
 			Interval: fmt.Sprintf("%ds", cfg.Consul.PollInterval),

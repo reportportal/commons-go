@@ -2,10 +2,10 @@ package conf
 
 import (
 	"fmt"
+	. "github.com/onsi/gomega"
 	"os"
 	"reflect"
 	"testing"
-	. "github.com/onsi/gomega"
 )
 
 func TestLoadEmptyConfig(t *testing.T) {
