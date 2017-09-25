@@ -26,7 +26,7 @@ func TestNoHandlerFound(t *testing.T) {
 	mux := chi.NewMux()
 	mux.NotFound(notFoundHandler)
 	mux.Get("/fake", func(w http.ResponseWriter, rq *http.Request) {
-		commons.WriteJSON(200, map[string]string{"status": "OK"}, w)
+		commons.WriteJSON(http.StatusOK, map[string]string{"status": "OK"}, w)
 
 	})
 	mux.ServeHTTP(rr, req)
