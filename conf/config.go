@@ -18,7 +18,7 @@ const (
 
 //ServerConfig represents Main service configuration
 type ServerConfig struct {
-	Hostname string `env:"RP_HOSTNAME" envDefault:"localhost"`
+	Hostname string `env:"HOSTNAME" envDefault:"localhost"`
 	Port     int    `env:"RP_SERVER_PORT" envDefault:"8080"`
 }
 
@@ -30,7 +30,7 @@ type EurekaConfig struct {
 
 //ConsulConfig represents Consul Discovery service configuration
 type ConsulConfig struct {
-	Address      string   `env:"RP_CONSUL_ADDRESS" envDefault:"localhost:8500"`
+	Address      string   `env:"RP_CONSUL_ADDRESS"`
 	Scheme       string   `env:"RP_CONSUL_SCHEME" envDefault:"http"`
 	Token        string   `env:"RP_CONSUL_TOKEN"`
 	PollInterval int      `env:"RP_CONSUL_POLL_INTERVAL" envDefault:"5"`
