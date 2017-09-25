@@ -2,12 +2,8 @@ package conf
 
 import (
 	"fmt"
-	"github.com/spf13/pflag"
-	"github.com/spf13/viper"
-	"log"
+	"github.com/avarabyeu/env"
 	"os"
-	"path/filepath"
-	"strings"
 )
 
 //Registry represents type of used service discovery server
@@ -22,130 +18,73 @@ const (
 
 //ServerConfig represents Main service configuration
 type ServerConfig struct {
-	Hostname string
-	Port     int
+	Hostname string `env:"RP_HOSTNAME" envDefault:"localhost"`
+	Port     int    `env:"RP_SERVER_PORT" envDefault:"8080"`
 }
 
 //EurekaConfig represents Eureka Discovery service configuration
 type EurekaConfig struct {
-	URL          string
-	PollInterval int
+	URL          string `env:"RP_EUREKA_URL" envDefault:"http://localhost:8761/eureka"`
+	PollInterval int    `env:"RP_EUREKA_POLL_INTERVAL" envDefault:"5"`
 }
 
 //ConsulConfig represents Consul Discovery service configuration
 type ConsulConfig struct {
-	Address      string
-	Scheme       string
-	Token        string
-	PollInterval int
-	Tags         string
-}
-
-//GetTags parses tags to string array
-func (c *ConsulConfig) GetTags() []string {
-	return strings.Split(c.Tags, ",")
+	Address      string   `env:"RP_CONSUL_ADDRESS" envDefault:"localhost:8500"`
+	Scheme       string   `env:"RP_CONSUL_SCHEME" envDefault:"http"`
+	Token        string   `env:"RP_CONSUL_TOKEN"`
+	PollInterval int      `env:"RP_CONSUL_POLL_INTERVAL" envDefault:"5"`
+	Tags         []string `env:"RP_CONSUL_TAGS"`
 }
 
 //AddTags parses tags to string array. Extremely slow implementation - simplicity over speed
 func (c *ConsulConfig) AddTags(tags ...string) {
-	curr := strings.Split(c.Tags, ",")
-	curr = append(curr, tags...)
-	c.Tags = strings.Join(curr, ",")
+	c.Tags = append(c.Tags, tags...)
 }
 
 //RpConfig represents Composite of all app configs
 type RpConfig struct {
-	AppName  string
-	Registry Registry
-	Server   ServerConfig
-	Eureka   EurekaConfig
-	Consul   ConsulConfig
+	AppName  string   `env:"RP_APP_NAME" envDefault:"goRP"`
+	Registry Registry `env:"RP_REGISTRY" envDefault:"consul"`
+	Server   *ServerConfig
+	Eureka   *EurekaConfig
+	Consul   *ConsulConfig
 
-	rawConfig *viper.Viper
+	raw map[string]string
 }
 
-//Get reads parameter/property value from config (env,file,defaults)
-func (cfg *RpConfig) Get(key string) interface{} {
-	return cfg.rawConfig.Get(key)
+//Get reads parameter/property value from config (env,defaults)
+func (cfg *RpConfig) Get(key string) string {
+	if val, ok := cfg.raw[key]; ok {
+		return val
+	}
+	return os.Getenv(key)
 }
 
 //LoadConfig loads configuration from provided file and serializes it into RpConfig struct
-func LoadConfig(file string, defaults map[string]interface{}) *RpConfig {
-	var vpr = viper.New()
-
-	if "" != file {
-		vpr.SetConfigType(strings.TrimLeft(filepath.Ext(file), "."))
-		vpr.SetConfigFile(file)
+func LoadConfig(cfg *RpConfig, defaults map[string]string) (*RpConfig, error) {
+	if nil == cfg {
+		cfg = EmptyConfig()
+	}
+	err := env.Parse(cfg)
+	if err != nil {
+		fmt.Printf("%+v\n", err)
+		return nil, err
 	}
 
-	vpr.SetEnvPrefix("RP")
-	vpr.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-	vpr.AutomaticEnv()
-
-	applyDefaults(vpr)
 	if nil != defaults {
-		for k, v := range defaults {
-			vpr.SetDefault(k, v)
-		}
+		defaults = map[string]string{}
 	}
+	cfg.raw = defaults
 
-	err := vpr.ReadInConfig()
-	if err != nil {
-		log.Println("No configuration file loaded - using defaults")
-	}
-
-	bindToFlags(vpr)
-
-	var rpConf RpConfig
-	err = vpr.Unmarshal(&rpConf)
-	if err != nil {
-		log.Fatalf("Cannot unmarshal config: %s", err.Error())
-	}
-	rpConf.rawConfig = vpr
-
-	//vpr.Debug()
-	return &rpConf
+	return cfg, nil
 }
 
-func bindToFlags(vpr *viper.Viper) {
-	if !pflag.Parsed() {
-		for _, key := range vpr.AllKeys() {
-			pflag.String(key, vpr.GetString(key), fmt.Sprintf("Property: %s", key))
-		}
-
-		pflag.Parse()
-
-		pflag.VisitAll(func(flg *pflag.Flag) {
-			if "" != flg.Value.String() {
-				vpr.BindPFlag(flg.Name, flg)
-			}
-		})
-
+//EmptyConfig creates empty config
+func EmptyConfig() *RpConfig {
+	return &RpConfig{
+		Consul: &ConsulConfig{},
+		Eureka: &EurekaConfig{},
+		Server: &ServerConfig{},
 	}
-
-}
-
-func applyDefaults(vpr *viper.Viper) {
-
-	vpr.SetDefault("appname", "goRP")
-
-	vpr.SetDefault("registry", Consul)
-
-	vpr.SetDefault("server.port", 8080)
-
-	defaultHostname := os.Getenv("HOSTNAME")
-	if "" == defaultHostname {
-		defaultHostname = "localhost"
-	}
-	vpr.SetDefault("server.hostname", defaultHostname)
-
-	vpr.SetDefault("eureka.url", "http://localhost:8761/eureka")
-	vpr.SetDefault("eureka.appname", "goRP")
-	vpr.SetDefault("eureka.pollInterval", 5)
-
-	vpr.SetDefault("consul.address", "localhost:8500")
-	vpr.SetDefault("consul.scheme", "http")
-	vpr.SetDefault("consul.pollInterval", 5)
-	vpr.SetDefault("consul.tags", "")
-
 }

@@ -4,17 +4,15 @@ import (
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
 	"github.com/reportportal/commons-go/registry"
-	"goji.io"
-	"goji.io/pat"
+	"github.com/go-chi/chi"
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
 )
 
 //RpServer represents ReportPortal micro-service instance
 type RpServer struct {
-	mux *goji.Mux
+	mux *chi.Mux
 	cfg *conf.RpConfig
 	Sd  registry.ServiceDiscovery
 }
@@ -27,25 +25,22 @@ func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 	case conf.Eureka:
 		sd = registry.NewEureka(cfg)
 	case conf.Consul:
-		tags := cfg.Consul.GetTags()
-		tags = append(tags, "statusPageUrlPath=/info", "healthCheckUrlPath=/health")
-
-		cfg.Consul.Tags = strings.Join(tags, ",")
+		cfg.Consul.Tags = append(cfg.Consul.Tags, "statusPageUrlPath=/info", "healthCheckUrlPath=/health")
 		sd = registry.NewConsul(cfg)
 	}
 
 	srv := &RpServer{
-		mux: goji.NewMux(),
+		mux: chi.NewMux(),
 		cfg: cfg,
 		Sd:  sd,
 	}
 
-	srv.mux.HandleFunc(pat.Get("/health"), func(w http.ResponseWriter, rq *http.Request) {
+	srv.mux.Get("/health", func(w http.ResponseWriter, rq *http.Request) {
 		commons.WriteJSON(200, map[string]string{"status": "UP"}, w)
 	})
 
 	bi := map[string]interface{}{"build": buildInfo}
-	srv.mux.HandleFunc(pat.Get("/info"), func(w http.ResponseWriter, rq *http.Request) {
+	srv.mux.Get("/info", func(w http.ResponseWriter, rq *http.Request) {
 		commons.WriteJSON(200, bi, w)
 
 	})
@@ -53,7 +48,7 @@ func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 }
 
 //AddRoute gives access to GIN router to add route and perform other modifications
-func (srv *RpServer) AddRoute(f func(router *goji.Mux)) {
+func (srv *RpServer) AddRoute(f func(router *chi.Mux)) {
 	f(srv.mux)
 }
 

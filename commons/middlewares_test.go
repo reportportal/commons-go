@@ -1,11 +1,10 @@
 package commons
 
 import (
-	"goji.io"
-	"goji.io/pat"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"github.com/go-chi/chi"
 )
 
 func TestNoHandlerFound(t *testing.T) {
@@ -23,7 +22,7 @@ func TestNoHandlerFound(t *testing.T) {
 		w.Write([]byte("not found"))
 	})
 
-	mux := goji.NewMux()
+	mux := chi.NewMux()
 	mux.Use(notFoundHandler)
 	mux.ServeHTTP(rr, req)
 
@@ -56,9 +55,9 @@ func TestHandlerFound(t *testing.T) {
 		w.Write([]byte("not found"))
 	})
 
-	mux := goji.NewMux()
+	mux := chi.NewMux()
 	mux.Use(notFoundHandler)
-	mux.HandleFunc(pat.Get("/health-check"), func(w http.ResponseWriter, rq *http.Request) {
+	mux.HandleFunc("/health-check", func(w http.ResponseWriter, rq *http.Request) {
 		w.WriteHeader(400)
 		w.Write([]byte("some error"))
 	})

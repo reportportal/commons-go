@@ -4,10 +4,9 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
-	"goji.io"
-	"goji.io/pat"
 	"net/http"
 	"os"
+	"github.com/go-chi/chi"
 )
 
 type Person struct {
@@ -16,11 +15,11 @@ type Person struct {
 }
 
 func ExampleRpServer() {
-	rpConf := conf.LoadConfig("../server.yaml", nil)
+	rpConf, _ := conf.LoadConfig(nil, nil)
 	rp := New(rpConf, commons.GetBuildInfo())
 
-	rp.AddRoute(func(router *goji.Mux) {
-		router.HandleFunc(pat.Get("/ping"), func(w http.ResponseWriter, rq *http.Request) {
+	rp.AddRoute(func(router *chi.Mux) {
+		router.Get("/ping", func(w http.ResponseWriter, rq *http.Request) {
 			commons.WriteJSON(http.StatusOK, Person{"av", 20}, w)
 		})
 	})
@@ -31,26 +30,26 @@ func ExampleRpServer() {
 
 func ExampleRpServer_StartServer() {
 
-	rpConf := conf.LoadConfig("../server.yaml",
-		map[string]interface{}{"AuthServerURL": "http://localhost:9998/sso/me"})
+	rpConf, _ := conf.LoadConfig(nil,
+		map[string]string{"AuthServerURL": "http://localhost:9998/sso/me"})
 
 	srv := New(rpConf, commons.GetBuildInfo())
 
-	srv.AddRoute(func(mux *goji.Mux) {
+	srv.AddRoute(func(mux *chi.Mux) {
 		mux.Use(func(next http.Handler) http.Handler {
 			return handlers.LoggingHandler(os.Stdout, next)
 		})
 
-		secured := goji.SubMux()
-		secured.Use(RequireRole("USER", rpConf.Get("AuthServerURL").(string)))
+		secured := chi.NewMux()
+		secured.Use(RequireRole("USER", rpConf.Get("AuthServerURL")))
 
 		me := func(w http.ResponseWriter, rq *http.Request) {
 			commons.WriteJSON(http.StatusOK, rq.Context().Value("user"), w)
 
 		}
-		secured.HandleFunc(pat.Get("/me"), me)
+		secured.HandleFunc("/me", me)
 
-		mux.Handle(pat.Get("/"), secured)
+		mux.Handle("/", secured)
 
 	})
 

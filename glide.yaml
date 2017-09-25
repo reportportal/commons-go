@@ -6,16 +6,15 @@ import:
   - api
 - package: github.com/hudl/fargo
   version: ^1.3.1
-- package: github.com/spf13/pflag
-- package: github.com/spf13/viper
-- package: goji.io
-  version: ^2.0.0
-  subpackages:
-  - middleware
-  - pat
 - package: golang.org/x/net
   subpackages:
   - context
+- package: github.com/caarlos0/env
+  version: ^3.0.0
+- package: github.com/go-chi/chi
+  version: ^3.2.1
 testImport:
 - package: github.com/gorilla/handlers
   version: ^1.2.1
+- package: github.com/onsi/gomega
+  version: v1.2.0
