@@ -72,7 +72,7 @@ func LoadConfig(cfg *RpConfig, defaults map[string]string) (*RpConfig, error) {
 		return nil, err
 	}
 
-	if nil != defaults {
+	if nil == defaults {
 		defaults = map[string]string{}
 	}
 	cfg.raw = defaults
