@@ -30,7 +30,7 @@ type EurekaConfig struct {
 
 //ConsulConfig represents Consul Discovery service configuration
 type ConsulConfig struct {
-	Address      string   `env:"RP_CONSUL_ADDRESS" envDefault:"localhost:8500"`
+	Address      string   `env:"RP_CONSUL_ADDRESS" envDefault:"registry:8500"`
 	Scheme       string   `env:"RP_CONSUL_SCHEME" envDefault:"http"`
 	Token        string   `env:"RP_CONSUL_TOKEN"`
 	PollInterval int      `env:"RP_CONSUL_POLL_INTERVAL" envDefault:"5"`
