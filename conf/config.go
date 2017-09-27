@@ -18,7 +18,7 @@ const (
 
 //ServerConfig represents Main service configuration
 type ServerConfig struct {
-	Hostname string `env:"RP_HOSTNAME" envDefault:"localhost"`
+	Hostname string `env:"HOSTNAME" envDefault:"localhost"`
 	Port     int    `env:"RP_SERVER_PORT" envDefault:"8080"`
 }
 
@@ -72,7 +72,7 @@ func LoadConfig(cfg *RpConfig, defaults map[string]string) (*RpConfig, error) {
 		return nil, err
 	}
 
-	if nil != defaults {
+	if nil == defaults {
 		defaults = map[string]string{}
 	}
 	cfg.raw = defaults

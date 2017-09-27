@@ -1,5 +1,5 @@
 hash: 72a42b48a89cda013b93e7ce44d10b1598ad0a288ef4844a794205844358c1eb
-updated: 2017-09-25T15:39:45.610878777+03:00
+updated: 2017-09-25T20:50:14.956793+03:00
 imports:
 - name: github.com/avarabyeu/env
   version: 4946e6742a05770376d9415afcaf28f67fd7b0e4
@@ -13,6 +13,8 @@ imports:
   version: 9df54ca75ad62b6295f33ca96e16a2ca10bc137a
 - name: github.com/go-chi/chi
   version: 04ec7fc4179604b2390947258f9143eaae23b596
+  subpackages:
+  - middleware
 - name: github.com/hashicorp/consul
   version: 112c0603d3d6fb23ab5f15e8fdb1a761da8eaf9a
   subpackages:
@@ -22,7 +24,7 @@ imports:
 - name: github.com/hashicorp/go-rootcerts
   version: 6bb64b370b90e7ef1fa532be9e591a81c3493e00
 - name: github.com/hashicorp/serf
-  version: e39abe475740649229c5c72b0cc1da10da7ed23a
+  version: 555c6fa2a11d1f8e08ac9964015e864a3f61e7c3
   subpackages:
   - coordinate
 - name: github.com/hudl/fargo
@@ -34,7 +36,7 @@ imports:
 - name: github.com/op/go-logging
   version: d2e44aa77b7195c0ef782189985dd8550e22e4de
 - name: golang.org/x/net
-  version: f01ecb60fe3835d80d9a0b7b2bf24b228c89260e
+  version: 66aacef3dd8a676686c7ae3716979581e8b03c47
   subpackages:
   - context
   - html
@@ -64,7 +66,7 @@ testImports:
   - matchers/support/goraph/util
   - types
 - name: golang.org/x/text
-  version: cfdf022e86b4ecfb646e1efbd7db175dd623a8fa
+  version: bd91bbf73e9a4a801adbfb97133c992678533126
   subpackages:
   - encoding
   - encoding/charmap
@@ -82,4 +84,4 @@ testImports:
   - runes
   - transform
 - name: gopkg.in/yaml.v2
-  version: 1be3d31502d6eabc0dd7ce5b0daab022e14a5538
+  version: eb3733d160e74a9c7e442f435eb3bea458e1d19f
