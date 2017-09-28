@@ -55,10 +55,10 @@ type RpConfig struct {
 
 //Get reads parameter/property value from config (env,defaults)
 func (cfg *RpConfig) Get(key string) string {
-	if val, ok := cfg.raw[key]; ok {
+	if val := os.Getenv(key); "" != val {
 		return val
 	}
-	return os.Getenv(key)
+	return cfg.raw[key]
 }
 
 //LoadConfig loads configuration from provided file and serializes it into RpConfig struct
