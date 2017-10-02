@@ -1,5 +1,5 @@
-hash: 72a42b48a89cda013b93e7ce44d10b1598ad0a288ef4844a794205844358c1eb
-updated: 2017-09-25T20:50:14.956793+03:00
+hash: fa315c75a39003a30e4e2d2c0166b0e64770ea49858274e607f5beb691c86727
+updated: 2017-10-01T01:41:48.860836+03:00
 imports:
 - name: github.com/avarabyeu/env
   version: 4946e6742a05770376d9415afcaf28f67fd7b0e4
@@ -35,6 +35,14 @@ imports:
   version: b8bc1bf767474819792c23f32d8286a45736f1c6
 - name: github.com/op/go-logging
   version: d2e44aa77b7195c0ef782189985dd8550e22e4de
+- name: github.com/pkg/errors
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
+- name: github.com/sirupsen/logrus
+  version: f006c2ac4710855cf0f916dd6b77acf6b048dc6e
+- name: golang.org/x/crypto
+  version: 81e90905daefcd6fd217b62423c0908922eadb30
+  subpackages:
+  - ssh/terminal
 - name: golang.org/x/net
   version: 66aacef3dd8a676686c7ae3716979581e8b03c47
   subpackages:
@@ -42,6 +50,11 @@ imports:
   - html
   - html/atom
   - html/charset
+- name: golang.org/x/sys
+  version: 7ddbeae9ae08c6a06a59597f0c9edbc5ff2444ce
+  subpackages:
+  - unix
+  - windows
 - name: gopkg.in/gcfg.v1
   version: 0ef1a8547f99b94fac9af5377dd72febba18f37c
   subpackages:

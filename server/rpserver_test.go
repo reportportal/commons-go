@@ -18,7 +18,7 @@ func ExampleRpServer() {
 	rpConf, _ := conf.LoadConfig(nil, nil)
 	rp := New(rpConf, commons.GetBuildInfo())
 
-	rp.AddRoute(func(router *chi.Mux) {
+	rp.WithRouter(func(router *chi.Mux) {
 		router.Get("/ping", func(w http.ResponseWriter, rq *http.Request) {
 			commons.WriteJSON(http.StatusOK, Person{"av", 20}, w)
 		})
@@ -35,7 +35,7 @@ func ExampleRpServer_StartServer() {
 
 	srv := New(rpConf, commons.GetBuildInfo())
 
-	srv.AddRoute(func(mux *chi.Mux) {
+	srv.WithRouter(func(mux *chi.Mux) {
 		mux.Use(func(next http.Handler) http.Handler {
 			return handlers.LoggingHandler(os.Stdout, next)
 		})
