@@ -31,7 +31,7 @@ func ExampleRpServer() {
 
 func ExampleRpServer_StartServer() {
 	rpConf := conf.EmptyConfig()
-	authServerUrl := "http://localhost:9998/sso/me"
+	authServerURL := "http://localhost:9998/sso/me"
 	_ = conf.LoadConfig(rpConf)
 
 	srv := New(rpConf, commons.GetBuildInfo())
@@ -42,7 +42,7 @@ func ExampleRpServer_StartServer() {
 		})
 
 		secured := chi.NewMux()
-		secured.Use(RequireRole("USER", authServerUrl))
+		secured.Use(RequireRole("USER", authServerURL))
 
 		me := func(w http.ResponseWriter, rq *http.Request) {
 			commons.WriteJSON(http.StatusOK, rq.Context().Value("user"), w)
