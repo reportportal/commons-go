@@ -11,23 +11,31 @@ import (
 func TestLoadEmptyConfig(t *testing.T) {
 	RegisterTestingT(t)
 
-	rpConf, err := LoadConfig(nil, nil)
+	rpConf := EmptyConfig()
+	err := LoadConfig(rpConf)
 	Ω(err).ShouldNot(HaveOccurred())
 	Expect(rpConf.Server.Hostname).ShouldNot(BeEmpty())
 }
 
 func TestLoadConfigWithParameters(t *testing.T) {
 	os.Setenv("RP_PARAMETERS_PARAM", "env_value")
-	rpConf, err := LoadConfig(EmptyConfig(), nil)
+
+	rpConf := struct {
+		*RpConfig
+		Param string `env:"RP_PARAMETERS_PARAM"`
+	}{RpConfig: EmptyConfig()}
+
+	err := LoadConfig(&rpConf)
 	Ω(err).ShouldNot(HaveOccurred())
 
-	if "env_value" != rpConf.Get("RP_PARAMETERS_PARAM") {
+	if "env_value" != rpConf.Param {
 		t.Error("Config parser fails")
 	}
 }
 
 func TestLoadConfigNonExisting(t *testing.T) {
-	rpConf, err := LoadConfig(EmptyConfig(), nil)
+	rpConf := EmptyConfig()
+	err := LoadConfig(rpConf)
 	Ω(err).ShouldNot(HaveOccurred())
 
 	if 8080 != rpConf.Server.Port {
@@ -36,7 +44,8 @@ func TestLoadConfigNonExisting(t *testing.T) {
 }
 
 func TestLoadConfigIncorrectFormat(t *testing.T) {
-	rpConf, err := LoadConfig(EmptyConfig(), nil)
+	rpConf := EmptyConfig()
+	err := LoadConfig(rpConf)
 	Ω(err).ShouldNot(HaveOccurred())
 
 	if 8080 != rpConf.Server.Port {
@@ -46,7 +55,8 @@ func TestLoadConfigIncorrectFormat(t *testing.T) {
 
 func TestLoadStringArray(t *testing.T) {
 	os.Setenv("RP_CONSUL_TAGS", "tag1,tag2,tag3")
-	rpConf, err := LoadConfig(nil, nil)
+	rpConf := EmptyConfig()
+	err := LoadConfig(rpConf)
 	Ω(err).ShouldNot(HaveOccurred())
 
 	rpConf.Consul.AddTags("tag4", "tag5")
