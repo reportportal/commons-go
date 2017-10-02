@@ -5,9 +5,9 @@ import (
 	errs "errors"
 	"fmt"
 	"github.com/pkg/errors"
+	"github.com/reportportal/commons-go/commons"
 	log "github.com/sirupsen/logrus"
 	"strings"
-	"github.com/reportportal/commons-go/commons"
 )
 
 //stackTracer is an error containing stack trace
@@ -15,9 +15,9 @@ type stackTracer interface {
 	StackTrace() errors.StackTrace
 }
 
-// HttpError represents a handler error. It provides methods for a HTTP status
+// HTTPError represents a handler error. It provides methods for a HTTP status
 // code and embeds the built-in error interface.
-type HttpError interface {
+type HTTPError interface {
 	error
 	Status() int
 }
@@ -63,7 +63,7 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 
 		switch e := errors.Cause(err).(type) {
-		case HttpError:
+		case HTTPError:
 			// We can retrieve the status here and write out a specific
 			// HTTP status code.
 			log.Printf("HTTP %d - %s", e.Status(), e)

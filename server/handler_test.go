@@ -1,12 +1,12 @@
 package server
 
 import (
+	"github.com/go-chi/chi"
 	. "github.com/onsi/gomega"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
-	"github.com/go-chi/chi"
 )
 
 func TestStatusError_Status(t *testing.T) {
