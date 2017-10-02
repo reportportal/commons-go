@@ -15,7 +15,8 @@ type Person struct {
 }
 
 func ExampleRpServer() {
-	rpConf, _ := conf.LoadConfig(nil, nil)
+	rpConf := conf.EmptyConfig()
+	_ = conf.LoadConfig(rpConf)
 	rp := New(rpConf, commons.GetBuildInfo())
 
 	rp.WithRouter(func(router *chi.Mux) {
@@ -29,9 +30,9 @@ func ExampleRpServer() {
 }
 
 func ExampleRpServer_StartServer() {
-
-	rpConf, _ := conf.LoadConfig(nil,
-		map[string]string{"AuthServerURL": "http://localhost:9998/sso/me"})
+	rpConf := conf.EmptyConfig()
+	authServerUrl := "http://localhost:9998/sso/me"
+	_ = conf.LoadConfig(rpConf)
 
 	srv := New(rpConf, commons.GetBuildInfo())
 
@@ -41,7 +42,7 @@ func ExampleRpServer_StartServer() {
 		})
 
 		secured := chi.NewMux()
-		secured.Use(RequireRole("USER", rpConf.Get("AuthServerURL")))
+		secured.Use(RequireRole("USER", authServerUrl))
 
 		me := func(w http.ResponseWriter, rq *http.Request) {
 			commons.WriteJSON(http.StatusOK, rq.Context().Value("user"), w)
