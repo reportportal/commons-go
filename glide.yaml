@@ -13,6 +13,8 @@ import:
   version: ^3.0.0
 - package: github.com/go-chi/chi
   version: ^3.2.1
+- package: gopkg.in/go-playground/validator.v9
+  version: ^9.7.0
 testImport:
 - package: github.com/gorilla/handlers
   version: ^1.2.1

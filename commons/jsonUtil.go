@@ -4,12 +4,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"io/ioutil"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 const contentTypeHeader string = "Content-Type"
 
 var jsonContentTypeValue = []string{"application/json; charset=utf-8"}
 var jsContentTypeValue = []string{"application/javascript; charset=utf-8"}
+
+// use a single instance of Validate, it caches struct info
+var validate *validator.Validate
 
 //WriteJSON serializes body to provided writer
 func WriteJSON(status int, body interface{}, w http.ResponseWriter) error {
@@ -35,4 +40,23 @@ func WriteJSONP(status int, body interface{}, callback string, w http.ResponseWr
 	w.WriteHeader(status)
 	_, err = w.Write([]byte(fmt.Sprintf("%s(%s);", callback, jsonArr)))
 	return err
+}
+
+//ReadJSON reads and validates json
+func ReadJSON(rq http.Request, val interface{}) error {
+	defer rq.Body.Close()
+
+	rqBody, err := ioutil.ReadAll(rq.Body)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(rqBody, val)
+	if err != nil {
+		return err
+	}
+
+	err = validate.Struct(rqBody)
+	return err
+
 }

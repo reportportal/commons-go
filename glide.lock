@@ -1,5 +1,5 @@
-hash: 72a42b48a89cda013b93e7ce44d10b1598ad0a288ef4844a794205844358c1eb
-updated: 2017-09-25T20:50:14.956793+03:00
+hash: 67dae02544bace8aef8517dd7e20311fe70064b1f79bc459f940944052149e64
+updated: 2017-10-03T17:16:20.898842247+03:00
 imports:
 - name: github.com/avarabyeu/env
   version: 4946e6742a05770376d9415afcaf28f67fd7b0e4
@@ -36,7 +36,7 @@ imports:
 - name: github.com/op/go-logging
   version: d2e44aa77b7195c0ef782189985dd8550e22e4de
 - name: golang.org/x/net
-  version: 66aacef3dd8a676686c7ae3716979581e8b03c47
+  version: 0a9397675ba34b2845f758fe3cd68828369c6517
   subpackages:
   - context
   - html
@@ -48,6 +48,8 @@ imports:
   - scanner
   - token
   - types
+- name: gopkg.in/go-playground/validator.v9
+  version: a021b2ec9a8a8bb970f3f15bc42617cb520e8a64
 testImports:
 - name: github.com/gorilla/handlers
   version: a4043c62cc2329bacda331d33fc908ab11ef0ec3
@@ -66,7 +68,7 @@ testImports:
   - matchers/support/goraph/util
   - types
 - name: golang.org/x/text
-  version: bd91bbf73e9a4a801adbfb97133c992678533126
+  version: 1cbadb444a806fd9430d14ad08967ed91da4fa0a
   subpackages:
   - encoding
   - encoding/charmap
