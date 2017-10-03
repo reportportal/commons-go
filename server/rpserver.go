@@ -45,9 +45,15 @@ func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 	return srv
 }
 
-//AddRoute gives access to GIN router to add route and perform other modifications
-func (srv *RpServer) AddRoute(f func(router *chi.Mux)) {
+//WithRouter gives access to Chi router to add route and perform other modifications
+func (srv *RpServer) WithRouter(f func(router *chi.Mux)) {
 	f(srv.mux)
+}
+
+//AddHandler is preferred way to add handler to the server.
+//Allows to return error which is representation of HTTP Response
+func (srv *RpServer) AddHandler(method, pattern string, f func(w http.ResponseWriter, r *http.Request) error) {
+	srv.mux.Method(method, pattern, Handler{f})
 }
 
 //AddHealthCheck adds health check

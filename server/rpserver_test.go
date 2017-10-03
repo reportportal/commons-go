@@ -15,10 +15,11 @@ type Person struct {
 }
 
 func ExampleRpServer() {
-	rpConf, _ := conf.LoadConfig(nil, nil)
+	rpConf := conf.EmptyConfig()
+	_ = conf.LoadConfig(rpConf)
 	rp := New(rpConf, commons.GetBuildInfo())
 
-	rp.AddRoute(func(router *chi.Mux) {
+	rp.WithRouter(func(router *chi.Mux) {
 		router.Get("/ping", func(w http.ResponseWriter, rq *http.Request) {
 			commons.WriteJSON(http.StatusOK, Person{"av", 20}, w)
 		})
@@ -29,19 +30,19 @@ func ExampleRpServer() {
 }
 
 func ExampleRpServer_StartServer() {
-
-	rpConf, _ := conf.LoadConfig(nil,
-		map[string]string{"AuthServerURL": "http://localhost:9998/sso/me"})
+	rpConf := conf.EmptyConfig()
+	authServerURL := "http://localhost:9998/sso/me"
+	_ = conf.LoadConfig(rpConf)
 
 	srv := New(rpConf, commons.GetBuildInfo())
 
-	srv.AddRoute(func(mux *chi.Mux) {
+	srv.WithRouter(func(mux *chi.Mux) {
 		mux.Use(func(next http.Handler) http.Handler {
 			return handlers.LoggingHandler(os.Stdout, next)
 		})
 
 		secured := chi.NewMux()
-		secured.Use(RequireRole("USER", rpConf.Get("AuthServerURL")))
+		secured.Use(RequireRole("USER", authServerURL))
 
 		me := func(w http.ResponseWriter, rq *http.Request) {
 			commons.WriteJSON(http.StatusOK, rq.Context().Value("user"), w)

@@ -3,7 +3,6 @@ package conf
 import (
 	"fmt"
 	"github.com/avarabyeu/env"
-	"os"
 )
 
 //Registry represents type of used service discovery server
@@ -49,35 +48,17 @@ type RpConfig struct {
 	Server   *ServerConfig
 	Eureka   *EurekaConfig
 	Consul   *ConsulConfig
-
-	raw map[string]string
-}
-
-//Get reads parameter/property value from config (env,defaults)
-func (cfg *RpConfig) Get(key string) string {
-	if val := os.Getenv(key); "" != val {
-		return val
-	}
-	return cfg.raw[key]
 }
 
 //LoadConfig loads configuration from provided file and serializes it into RpConfig struct
-func LoadConfig(cfg *RpConfig, defaults map[string]string) (*RpConfig, error) {
-	if nil == cfg {
-		cfg = EmptyConfig()
-	}
+func LoadConfig(cfg interface{}) error {
 	err := env.Parse(cfg)
 	if err != nil {
 		fmt.Printf("%+v\n", err)
-		return nil, err
+		return err
 	}
 
-	if nil == defaults {
-		defaults = map[string]string{}
-	}
-	cfg.raw = defaults
-
-	return cfg, nil
+	return nil
 }
 
 //EmptyConfig creates empty config
