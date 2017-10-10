@@ -25,7 +25,7 @@ func NewConsul(cfg *conf.RpConfig) ServiceDiscovery {
 		log.Fatal("Cannot create Consul client!")
 	}
 
-	baseURL := commons.HTTP + cfg.Server.Hostname + ":" + strconv.Itoa(cfg.Server.Port)
+	baseURL := HTTP + cfg.Server.Hostname + ":" + strconv.Itoa(cfg.Server.Port)
 	registration := &api.AgentServiceRegistration{
 		ID:      fmt.Sprintf("%s-%s-%d", cfg.AppName, cfg.Server.Hostname, cfg.Server.Port),
 		Port:    cfg.Server.Port,

@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"encoding/json"
 )
 
 func TestBuildInfo(t *testing.T) {
@@ -12,7 +13,8 @@ func TestBuildInfo(t *testing.T) {
 	buildInfo := GetBuildInfo()
 	buildInfo.Name = "test"
 	rr := httptest.NewRecorder()
-	e := WriteJSON(http.StatusOK, buildInfo, rr)
+	rr.WriteHeader(http.StatusOK)
+	e := json.NewEncoder(rr).Encode(buildInfo)
 	// Check the status code is what we expect.
 	if nil != e {
 		t.Error("Something went wrong with serialization")

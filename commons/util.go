@@ -10,9 +10,6 @@ import (
 	"time"
 )
 
-//HTTP is protocol prefix constant
-const HTTP = "http://"
-
 //Schedule executes callback func with some period.
 //no delays force callback to execute first time immediately
 //Function returns channel to stop scheduled execution
