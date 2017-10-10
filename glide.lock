@@ -1,5 +1,5 @@
-hash: 72a42b48a89cda013b93e7ce44d10b1598ad0a288ef4844a794205844358c1eb
-updated: 2017-09-25T20:50:14.956793+03:00
+hash: e49159d1be776b0ac3b4fe18ec7f4f29c9659676590c82993d8cbe563aedb8fd
+updated: 2017-10-03T17:23:12.577456412+03:00
 imports:
 - name: github.com/avarabyeu/env
   version: 4946e6742a05770376d9415afcaf28f67fd7b0e4
@@ -15,6 +15,12 @@ imports:
   version: 04ec7fc4179604b2390947258f9143eaae23b596
   subpackages:
   - middleware
+- name: github.com/go-playground/locales
+  version: 1e5f1161c6416a5ff48840eb8724a394e48cc534
+  subpackages:
+  - currency
+- name: github.com/go-playground/universal-translator
+  version: 71201497bace774495daed26a3874fd339e0b538
 - name: github.com/hashicorp/consul
   version: 112c0603d3d6fb23ab5f15e8fdb1a761da8eaf9a
   subpackages:
@@ -40,7 +46,7 @@ imports:
 - name: github.com/sirupsen/logrus
   version: f006c2ac4710855cf0f916dd6b77acf6b048dc6e
 - name: golang.org/x/crypto
-  version: 81e90905daefcd6fd217b62423c0908922eadb30
+  version: c84b36c635ad003a10f0c755dff5685ceef18c71
   subpackages:
   - ssh/terminal
 - name: golang.org/x/net
@@ -51,7 +57,7 @@ imports:
   - html/atom
   - html/charset
 - name: golang.org/x/sys
-  version: 7ddbeae9ae08c6a06a59597f0c9edbc5ff2444ce
+  version: 314a259e304ff91bd6985da2a7149bbf91237993
   subpackages:
   - unix
   - windows

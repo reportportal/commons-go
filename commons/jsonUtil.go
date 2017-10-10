@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"io/ioutil"
 	"gopkg.in/go-playground/validator.v9"
+	"github.com/pkg/errors"
 )
 
 const contentTypeHeader string = "Content-Type"
@@ -48,15 +49,18 @@ func ReadJSON(rq http.Request, val interface{}) error {
 
 	rqBody, err := ioutil.ReadAll(rq.Body)
 	if err != nil {
-		return err
+		return errors.Wrap(err, "Cannot read request body")
 	}
 
 	err = json.Unmarshal(rqBody, val)
 	if err != nil {
-		return err
+		return errors.Wrap(err, "Cannot unmarshal request")
 	}
 
 	err = validate.Struct(rqBody)
+	if nil != err {
+		return errors.Wrap(err, "Struct validation has failed")
+	}
 	return err
 
 }
