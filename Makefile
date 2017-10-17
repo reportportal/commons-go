@@ -53,7 +53,7 @@ release:
 	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v1%g '{}' \;
 	git add .
 	git commit -m "rewrite path"
-	git push origin ${v}
+	git push origin "temp-${v}"
 	git tag -a ${v} -m "creating tag ${v}"
 	git push origin "refs/tags/${v}"
 	git checkout master
