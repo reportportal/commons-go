@@ -3,8 +3,8 @@ package server
 import (
 	"github.com/go-chi/chi"
 	"github.com/gorilla/handlers"
-	"gopkg.in/reportportal/commons-go.v1/commons"
-	"gopkg.in/reportportal/commons-go.v1/conf"
+	"github.com/reportportal/commons-go/commons"
+	"github.com/reportportal/commons-go/conf"
 	"net/http"
 	"os"
 )

@@ -43,7 +43,7 @@ rewrite-import-paths:
 	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v1%g '{}' \;
 
 restore-import-paths:
-	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v1%g '{}' \;
+	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"gopkg.in/reportportal/commons-go.v1%\"github.com/reportportal/commons-go%g '{}' \;
 
 clean:
 	if [ -d ${BINARY_DIR} ] ; then rm -r ${BINARY_DIR} ; fi
