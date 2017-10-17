@@ -55,3 +55,4 @@ release:
 	git push origin
 	git tag -v ${v}
 	git branch -d remotes/origin/${v}
+	git checkout master
