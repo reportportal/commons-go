@@ -55,7 +55,7 @@ release:
 	git commit -m "rewrite path"
 	git push origin ${v}
 	git tag -a ${v} -m "creating tag ${v}"
-	git push origin ${v}
+	git push origin "refs/tags/${v}"
 	git checkout master
 	git branch -D ${v}
 	git push origin --delete "origin/${v}"
