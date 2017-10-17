@@ -18,7 +18,7 @@ type eurekaClient struct {
 func NewEureka(conf *conf.RpConfig) ServiceDiscovery {
 	eureka := fargo.NewConn(conf.Eureka.URL)
 	eureka.PollInterval = time.Duration(conf.Eureka.PollInterval) * time.Second
-	baseURL := commons.HTTP + conf.Server.Hostname + ":" + strconv.Itoa(conf.Server.Port)
+	baseURL := HTTP + conf.Server.Hostname + ":" + strconv.Itoa(conf.Server.Port)
 	var appInstance = &fargo.Instance{
 		App:        conf.AppName,
 		VipAddress: conf.Server.Hostname,

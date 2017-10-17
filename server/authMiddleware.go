@@ -3,7 +3,6 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/reportportal/commons-go/commons"
 	"net/http"
 	"strings"
 	"time"
@@ -38,7 +37,6 @@ func (e *authError) Error() string {
 
 const (
 	authorizationHeader    = "Authorization"
-	contentTypeHeader      = "Content-Type"
 	jsonContentType        = "application/json"
 	bearerToken            = "bearer"
 	unknownAuthorityWeight = 0
@@ -97,7 +95,7 @@ func respondWithErrorString(w http.ResponseWriter, code int, message string) {
 
 //respondWithErrorString converts message JSON ans sends 401 to the client
 func respondWithError(w http.ResponseWriter, code int, message interface{}) {
-	commons.WriteJSON(code, message, w)
+	WriteJSON(code, message, w)
 }
 
 //parseBearer parses authorization header

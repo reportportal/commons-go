@@ -95,12 +95,11 @@ func (srv *RpServer) initDefaultRoutes() {
 			rs["status"] = "UP"
 		}
 
-		commons.WriteJSON(status, rs, w)
+		WriteJSON(status, rs, w)
 	})
 
 	bi := map[string]interface{}{"build": srv.buildInfo}
 	srv.mux.Get("/info", func(w http.ResponseWriter, rq *http.Request) {
-		commons.WriteJSON(200, bi, w)
-
+		WriteJSON(http.StatusOK, bi, w)
 	})
 }

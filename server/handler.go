@@ -5,7 +5,6 @@ import (
 	errs "errors"
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/reportportal/commons-go/commons"
 	log "github.com/sirupsen/logrus"
 	"strings"
 )
@@ -67,7 +66,7 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			// We can retrieve the status here and write out a specific
 			// HTTP status code.
 			log.Printf("HTTP %d - %s", e.Status(), e)
-			commons.WriteJSON(e.Status(), map[string]string{"error": e.Error()}, w)
+			WriteJSON(e.Status(), map[string]string{"error": e.Error()}, w)
 		default:
 			// Any error types we don't specifically look out for default
 			// to serving a HTTP 500

@@ -2,7 +2,6 @@ package server
 
 import (
 	"github.com/go-chi/chi"
-	"github.com/reportportal/commons-go/commons"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -26,7 +25,7 @@ func TestNoHandlerFound(t *testing.T) {
 	mux := chi.NewMux()
 	mux.NotFound(notFoundHandler)
 	mux.Get("/fake", func(w http.ResponseWriter, rq *http.Request) {
-		commons.WriteJSON(http.StatusOK, map[string]string{"status": "OK"}, w)
+		WriteJSON(http.StatusOK, map[string]string{"status": "OK"}, w)
 
 	})
 	mux.ServeHTTP(rr, req)

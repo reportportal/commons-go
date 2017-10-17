@@ -1,4 +1,4 @@
-package: github.com/reportportal/commons-go
+package: gopkg.in/reportportal/commons-go.v1
 import:
 - package: github.com/hashicorp/consul
   version: ^0.8.5

@@ -21,7 +21,7 @@ func ExampleRpServer() {
 
 	rp.WithRouter(func(router *chi.Mux) {
 		router.Get("/ping", func(w http.ResponseWriter, rq *http.Request) {
-			commons.WriteJSON(http.StatusOK, Person{"av", 20}, w)
+			WriteJSON(http.StatusOK, Person{"av", 20}, w)
 		})
 	})
 
@@ -45,7 +45,7 @@ func ExampleRpServer_StartServer() {
 		secured.Use(RequireRole("USER", authServerURL))
 
 		me := func(w http.ResponseWriter, rq *http.Request) {
-			commons.WriteJSON(http.StatusOK, rq.Context().Value("user"), w)
+			WriteJSON(http.StatusOK, rq.Context().Value("user"), w)
 
 		}
 		secured.HandleFunc("/me", me)
