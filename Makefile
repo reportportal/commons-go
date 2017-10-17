@@ -54,6 +54,6 @@ release:
 	git add .
 	git commit -m "rewrite path"
 	git push origin ${v}
-	git tag -v ${v}
+	git tag -a ${v} -m "creating tag ${v}"
 	git branch -d remotes/origin/${v}
 	git checkout master
