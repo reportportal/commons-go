@@ -54,7 +54,7 @@ release:
 	git add .
 	git status
 	git commit -m "rewrite path"
-	git push -u origin "temp-${v}"
+	git push -u origin temp-${v}
 	git tag -a ${v} -m "creating tag ${v}"
 	git push origin "refs/tags/${v}"
 	git checkout master
