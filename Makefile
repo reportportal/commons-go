@@ -49,7 +49,7 @@ clean:
 	if [ -d ${BINARY_DIR} ] ; then rm -r ${BINARY_DIR} ; fi
 
 release:
-	git checkout -b ${v}
+	git checkout -b temp-${v}
 	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v1%g '{}' \;
 	git add .
 	git status
