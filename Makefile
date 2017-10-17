@@ -39,5 +39,21 @@ fmt:
 build: checkstyle test
 	$(GO) build $(PACKAGES_NOVENDOR)
 
+rewrite-import-paths:
+	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v1%g '{}' \;
+
+restore-import-paths:
+	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v1%g '{}' \;
+
 clean:
 	if [ -d ${BINARY_DIR} ] ; then rm -r ${BINARY_DIR} ; fi
+
+release:
+	git checkout -b ${v}
+	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v1%g '{}' \;
+	git add .
+	git commit -m "rewrite path"
+	git push origin
+	git tag -v ${v}
+	git branch -d remotes/origin/${v}
+	git checkout master
