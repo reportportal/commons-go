@@ -61,6 +61,11 @@ func (srv *RpServer) AddHealthCheck(h HealthCheck) {
 	srv.hChecks = append(srv.hChecks, h)
 }
 
+
+func (srv *RpServer) AddHealthCheckFunc(f func () error) {
+	srv.hChecks = append(srv.hChecks, HealthCheckFunc(f))
+}
+
 //StartServer starts HTTP server
 func (srv *RpServer) StartServer() {
 	srv.initDefaultRoutes()
