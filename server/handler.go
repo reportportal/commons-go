@@ -32,6 +32,11 @@ func NewStatusError(code int, err string) StatusError {
 	return StatusError{code, errs.New(err)}
 }
 
+//ToStatusError creates new StatusError
+func ToStatusError(code int, err error) StatusError {
+	return StatusError{code, err}
+}
+
 //Error allows StatusError to satisfy the error interface.
 func (se StatusError) Error() string {
 	return se.Err.Error()
