@@ -15,7 +15,7 @@ var jsonContentTypeValue = []string{"application/json; charset=utf-8"}
 var jsContentTypeValue = []string{"application/javascript; charset=utf-8"}
 
 // use a single instance of Validate, it caches struct info
-var validate *validator.Validate
+var validate = validator.New()
 
 //WriteJSON serializes body to provided writer
 func WriteJSON(status int, body interface{}, w http.ResponseWriter) error {
