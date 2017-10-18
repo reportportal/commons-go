@@ -1,11 +1,11 @@
 package commons
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
-	"encoding/json"
 )
 
 func TestBuildInfo(t *testing.T) {

@@ -8,7 +8,7 @@ import (
 
 const (
 	//HTTP is protocol prefix constant
-	HTTP = "http://"
+	HTTP                        = "http://"
 	retryTimeout  time.Duration = time.Second * 5
 	retryAttempts int           = 3
 )
