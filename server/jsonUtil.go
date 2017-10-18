@@ -44,7 +44,7 @@ func WriteJSONP(status int, body interface{}, callback string, w http.ResponseWr
 }
 
 //ReadJSON reads
-func ReadJSON(rq http.Request, val interface{}) error {
+func ReadJSON(rq *http.Request, val interface{}) error {
 	defer rq.Body.Close()
 
 	rqBody, err := ioutil.ReadAll(rq.Body)
