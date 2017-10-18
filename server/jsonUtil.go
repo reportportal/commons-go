@@ -43,7 +43,7 @@ func WriteJSONP(status int, body interface{}, callback string, w http.ResponseWr
 	return err
 }
 
-//ReadJSON reads and validates json
+//ReadJSON reads
 func ReadJSON(rq http.Request, val interface{}) error {
 	defer rq.Body.Close()
 
@@ -56,11 +56,15 @@ func ReadJSON(rq http.Request, val interface{}) error {
 	if err != nil {
 		return errors.Wrap(err, "Cannot unmarshal request")
 	}
+	return err
 
-	err = validate.Struct(val)
+}
+
+//Validate validates struct
+func Validate(val interface{}) error {
+	err := validate.Struct(val)
 	if nil != err {
 		return errors.Wrap(err, "Struct validation has failed")
 	}
-	return err
-
+	return nil
 }
