@@ -57,7 +57,7 @@ func ReadJSON(rq http.Request, val interface{}) error {
 		return errors.Wrap(err, "Cannot unmarshal request")
 	}
 
-	err = validate.Struct(rqBody)
+	err = validate.Struct(val)
 	if nil != err {
 		return errors.Wrap(err, "Struct validation has failed")
 	}
