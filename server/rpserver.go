@@ -61,8 +61,8 @@ func (srv *RpServer) AddHealthCheck(h HealthCheck) {
 	srv.hChecks = append(srv.hChecks, h)
 }
 
-
-func (srv *RpServer) AddHealthCheckFunc(f func () error) {
+//AddHealthCheckFunc adds health check function
+func (srv *RpServer) AddHealthCheckFunc(f func() error) {
 	srv.hChecks = append(srv.hChecks, HealthCheckFunc(f))
 }
 
