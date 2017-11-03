@@ -2,7 +2,7 @@ package conf
 
 import (
 	"fmt"
-	"github.com/avarabyeu/env"
+	"github.com/caarlos0/env"
 )
 
 //Registry represents type of used service discovery server
