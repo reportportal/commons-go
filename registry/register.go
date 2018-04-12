@@ -1,7 +1,7 @@
 package registry
 
 import (
-	"github.com/reportportal/commons-go/commons"
+	"gopkg.in/reportportal/commons-go.v1/commons"
 	"log"
 	"time"
 )
