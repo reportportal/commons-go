@@ -3,9 +3,9 @@ package server
 import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/reportportal/commons-go/commons"
-	"github.com/reportportal/commons-go/conf"
-	"github.com/reportportal/commons-go/registry"
+	"gopkg.in/reportportal/commons-go.v1/commons"
+	"gopkg.in/reportportal/commons-go.v1/conf"
+	"gopkg.in/reportportal/commons-go.v1/registry"
 	"log"
 	"net/http"
 	"strconv"
