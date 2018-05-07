@@ -1,16 +1,10 @@
-hash: f31daa7a0498fcb8e58669b623f098ff991cb48c2dd3e36c7d32eac4be9c562f
-updated: 2017-12-01T15:05:12.164510885+03:00
+hash: 84fd57c2a8967fad46d81e22a17bb1f4dd838696d027e23972eed6599e63b8df
+updated: 2018-05-07T15:37:43.360701+03:00
 imports:
 - name: github.com/caarlos0/env
-  version: 9de094f90fa8a13dc162e10ae8a3b95c0c2c33e1
-- name: github.com/cenkalti/backoff
-  version: 4dc77674aceaabba2c7e3da25d4c823edfb73f99
-- name: github.com/clbanning/x2j
-  version: 5ee34bb343f10ecfc125261107681de62f985cf6
-- name: github.com/franela/goreq
-  version: 9df54ca75ad62b6295f33ca96e16a2ca10bc137a
+  version: 1cddc31c48c56ecd700d873edb9fd5b6f5df922a
 - name: github.com/go-chi/chi
-  version: 687d2792aedd8e8ac3bbd8592cf55b91d7ea8ce9
+  version: e83ac2304db3c50cf03d96a2fcd39009d458bc35
   subpackages:
   - middleware
 - name: github.com/go-playground/locales
@@ -20,7 +14,7 @@ imports:
 - name: github.com/go-playground/universal-translator
   version: 71201497bace774495daed26a3874fd339e0b538
 - name: github.com/hashicorp/consul
-  version: 9564c2978b59c060aed0657e662a4eb1c6f35356
+  version: fb848fc48818f58690db09d14640513aa6bf3c02
   subpackages:
   - api
 - name: github.com/hashicorp/go-cleanhttp
@@ -31,18 +25,12 @@ imports:
   version: 555c6fa2a11d1f8e08ac9964015e864a3f61e7c3
   subpackages:
   - coordinate
-- name: github.com/hudl/fargo
-  version: 14ced469f7dc175f6fbf9f55d799f9f12e302965
-- name: github.com/miekg/dns
-  version: f01e44c2fdbf755201344b5b7917f974a4badd13
 - name: github.com/mitchellh/go-homedir
   version: b8bc1bf767474819792c23f32d8286a45736f1c6
-- name: github.com/op/go-logging
-  version: d2e44aa77b7195c0ef782189985dd8550e22e4de
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/sirupsen/logrus
-  version: f006c2ac4710855cf0f916dd6b77acf6b048dc6e
+  version: d682213848ed68c0a260ca37d6dd5ace8423f5ba
 - name: golang.org/x/crypto
   version: c84b36c635ad003a10f0c755dff5685ceef18c71
   subpackages:
@@ -59,14 +47,8 @@ imports:
   subpackages:
   - unix
   - windows
-- name: gopkg.in/gcfg.v1
-  version: 0ef1a8547f99b94fac9af5377dd72febba18f37c
-  subpackages:
-  - scanner
-  - token
-  - types
 - name: gopkg.in/go-playground/validator.v9
-  version: 61caf9d3038e1af346dbf5c2e16f6678e1548364
+  version: ee0bbdea519c2c66777c6bfc943838291734ba6c
 testImports:
 - name: github.com/gorilla/handlers
   version: 90663712d74cb411cbef281bc1e08c19d1a76145

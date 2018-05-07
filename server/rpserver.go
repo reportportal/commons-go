@@ -25,8 +25,6 @@ func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
 
 	var sd registry.ServiceDiscovery
 	switch cfg.Registry {
-	case conf.Eureka:
-		sd = registry.NewEureka(cfg)
 	case conf.Consul:
 		cfg.Consul.Tags = append(cfg.Consul.Tags, "statusPageUrlPath=/info", "healthCheckUrlPath=/health")
 		sd = registry.NewConsul(cfg)
@@ -83,7 +81,7 @@ func (srv *RpServer) initDefaultRoutes() {
 	srv.mux.Get("/health", func(w http.ResponseWriter, rq *http.Request) {
 
 		//collect status results
-		errs := []string{}
+		var errs []string
 		for _, hc := range srv.hChecks {
 			if err := hc.Check(); nil != err {
 				errs = append(errs, err.Error())

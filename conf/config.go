@@ -11,20 +11,16 @@ type Registry string
 const (
 	//Consul service discovery
 	Consul Registry = "consul"
+
+	// Eureka support has been dropped starting from version 1.1
 	//Eureka service discovery
-	Eureka Registry = "eureka"
+	//Eureka Registry = "eureka"
 )
 
 //ServerConfig represents Main service configuration
 type ServerConfig struct {
 	Hostname string `env:"HOSTNAME" envDefault:"localhost"`
 	Port     int    `env:"RP_SERVER_PORT" envDefault:"8080"`
-}
-
-//EurekaConfig represents Eureka Discovery service configuration
-type EurekaConfig struct {
-	URL          string `env:"RP_EUREKA_URL" envDefault:"http://localhost:8761/eureka"`
-	PollInterval int    `env:"RP_EUREKA_POLL_INTERVAL" envDefault:"5"`
 }
 
 //ConsulConfig represents Consul Discovery service configuration
@@ -46,7 +42,6 @@ type RpConfig struct {
 	AppName  string   `env:"RP_APP_NAME" envDefault:"goRP"`
 	Registry Registry `env:"RP_REGISTRY" envDefault:"consul"`
 	Server   *ServerConfig
-	Eureka   *EurekaConfig
 	Consul   *ConsulConfig
 }
 
@@ -65,7 +60,6 @@ func LoadConfig(cfg interface{}) error {
 func EmptyConfig() *RpConfig {
 	return &RpConfig{
 		Consul: &ConsulConfig{},
-		Eureka: &EurekaConfig{},
 		Server: &ServerConfig{},
 	}
 }
