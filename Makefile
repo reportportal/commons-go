@@ -50,7 +50,7 @@ clean:
 
 release:
 	git checkout -b temp-${v}
-	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v1%g '{}' \;
+	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v2%g '{}' \;
 	git add .
 	git status
 	git commit -m "rewrite import paths"
