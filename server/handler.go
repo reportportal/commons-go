@@ -47,6 +47,14 @@ func (se StatusError) Status() int {
 	return se.Code
 }
 
+//StackTrace returns stacktrace of child error or nil
+func (se StatusError) StackTrace() errors.StackTrace {
+	if se, ok := se.Err.(stackTracer); ok {
+		return se.StackTrace()
+	}
+	return nil
+}
+
 // The Handler struct that takes a configured Env and a function matching
 // our useful signature.
 type Handler struct {
