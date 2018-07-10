@@ -70,7 +70,7 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		case HTTPError:
 			// We can retrieve the status here and write out a specific
 			// HTTP status code.
-			log.Printf("HTTP %d - %s", e.Status(), e)
+			log.Printf("HTTP %d - %s\n", e.Status(), e)
 			WriteJSON(e.Status(), map[string]string{"error": e.Error()}, w)
 		default:
 			// Any error types we don't specifically look out for default

@@ -1,9 +1,5 @@
 package: gopkg.in/reportportal/commons-go.v1
 import:
-- package: github.com/hashicorp/consul
-  version: ^1.0.0
-  subpackages:
-  - api
 - package: golang.org/x/net
   subpackages:
   - context

@@ -1,8 +1,6 @@
-hash: 84fd57c2a8967fad46d81e22a17bb1f4dd838696d027e23972eed6599e63b8df
-updated: 2018-05-28T13:56:49.268444+03:00
+hash: ebf161c1bc294c499c01f8ae9f822080b2c070ae0daac802885992f58b57c9d9
+updated: 2018-07-10T16:08:11.344091+03:00
 imports:
-- name: github.com/armon/go-metrics
-  version: 783273d703149aaeb9897cf58613d5af48861c25
 - name: github.com/caarlos0/env
   version: 1cddc31c48c56ecd700d873edb9fd5b6f5df922a
 - name: github.com/go-chi/chi
@@ -15,48 +13,28 @@ imports:
   - currency
 - name: github.com/go-playground/universal-translator
   version: 71201497bace774495daed26a3874fd339e0b538
-- name: github.com/hashicorp/consul
-  version: 5174058f0d2bda63fa5198ab96c33d9a909c58ed
-  subpackages:
-  - api
-- name: github.com/hashicorp/go-cleanhttp
-  version: d5fe4b57a186c716b0e00b8c301cbd9b4182694d
-- name: github.com/hashicorp/go-immutable-radix
-  version: 7f3cd4390caab3250a57f30efdb2a65dd7649ecf
-- name: github.com/hashicorp/go-rootcerts
-  version: 6bb64b370b90e7ef1fa532be9e591a81c3493e00
-- name: github.com/hashicorp/golang-lru
-  version: 0fb14efe8c47ae851c0034ed7a448854d3d34cf3
-  subpackages:
-  - simplelru
-- name: github.com/hashicorp/serf
-  version: 74c8a16195ef4bd0609028253f72b924c371445d
-  subpackages:
-  - coordinate
-- name: github.com/mitchellh/go-homedir
-  version: 3864e76763d94a6df2f9960b16a20a33da9f9a66
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/sirupsen/logrus
   version: c155da19408a8799da419ed3eeb0cb5db0ad5dbc
 - name: golang.org/x/crypto
-  version: e73bf333ef8920dbb52ad18d4bd38ad9d9bc76d7
+  version: a49355c7e3f8fe157a85be2f77e6e269a0f89602
   subpackages:
   - ssh/terminal
 - name: golang.org/x/net
-  version: 5f9ae10d9af5b1c89ae6904293b14b064d4ada23
+  version: 292b43bbf7cb8d35ddf40f8d5100ef3837cced3f
   subpackages:
   - context
   - html
   - html/atom
   - html/charset
 - name: golang.org/x/sys
-  version: 79b0c6888797020a994db17c8510466c72fe75d9
+  version: 1b2967e3c290b7c545b3db0deeda16e9be4f98a2
   subpackages:
   - unix
   - windows
 - name: gopkg.in/go-playground/validator.v9
-  version: f28cb45dc0f0f406ba2015cdb59a5203ad220bc2
+  version: ab2a8a99087e827c9af87ed6777ba897348fb178
 testImports:
 - name: github.com/gorilla/handlers
   version: 90663712d74cb411cbef281bc1e08c19d1a76145
