@@ -1,4 +1,4 @@
-package: gopkg.in/reportportal/commons-go.v1
+package: gopkg.in/reportportal/commons-go.v5
 import:
 - package: golang.org/x/net
   subpackages:
