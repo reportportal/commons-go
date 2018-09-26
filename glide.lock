@@ -1,10 +1,10 @@
 hash: ebf161c1bc294c499c01f8ae9f822080b2c070ae0daac802885992f58b57c9d9
-updated: 2018-07-10T16:08:11.344091+03:00
+updated: 2018-09-26T14:50:40.77965+03:00
 imports:
 - name: github.com/caarlos0/env
-  version: 1cddc31c48c56ecd700d873edb9fd5b6f5df922a
+  version: 7f73d6597823c7a0c39edd46e1998f90692b2add
 - name: github.com/go-chi/chi
-  version: e83ac2304db3c50cf03d96a2fcd39009d458bc35
+  version: b5294d10673813fac8558e7f47242bc9e61b4c25
   subpackages:
   - middleware
 - name: github.com/go-playground/locales
@@ -16,28 +16,28 @@ imports:
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/sirupsen/logrus
-  version: c155da19408a8799da419ed3eeb0cb5db0ad5dbc
+  version: 3e01752db0189b9157070a0e1668a620f9a85da2
 - name: golang.org/x/crypto
-  version: a49355c7e3f8fe157a85be2f77e6e269a0f89602
+  version: 0e37d006457bf46f9e6692014ba72ef82c33022c
   subpackages:
   - ssh/terminal
 - name: golang.org/x/net
-  version: 292b43bbf7cb8d35ddf40f8d5100ef3837cced3f
+  version: f04abc6bdfa7a0171a8a0c9fd2ada9391044d056
   subpackages:
   - context
   - html
   - html/atom
   - html/charset
 - name: golang.org/x/sys
-  version: 1b2967e3c290b7c545b3db0deeda16e9be4f98a2
+  version: 90868a75fefd03942536221d7c0e2f84ec62a668
   subpackages:
   - unix
   - windows
 - name: gopkg.in/go-playground/validator.v9
-  version: ab2a8a99087e827c9af87ed6777ba897348fb178
+  version: e69e9a28bb62b977fdc58d051f1bb477b7cbe486
 testImports:
 - name: github.com/gorilla/handlers
-  version: 90663712d74cb411cbef281bc1e08c19d1a76145
+  version: 7e0847f9db758cdebd26c149d0ae9d5d0b9c98ce
 - name: github.com/onsi/gomega
   version: c893efa28eb45626cdaa76c9f653b62488858837
   subpackages:
