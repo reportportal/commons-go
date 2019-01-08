@@ -18,8 +18,8 @@ help:
 	@echo "checkstyle - gofmt+golint+misspell"
 
 vendor:
-	$(GO) get -v github.com/Masterminds/glide
-	cd $(GOPATH)/src/github.com/Masterminds/glide && git checkout tags/v0.12.3 && go install && cd -
+	#$(GO) get -v github.com/Masterminds/glide
+	#cd $(GOPATH)/src/github.com/Masterminds/glide && git checkout tags/v0.12.3 && go install && cd -
 	glide install
 
 get-build-deps:
