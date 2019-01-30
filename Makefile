@@ -10,21 +10,16 @@ PACKAGES_NOVENDOR = $(shell glide novendor)
 
 BUILD_DEPS:= github.com/alecthomas/gometalinter
 
-.PHONY: vendor test build
+.PHONY: test build
 
 help:
 	@echo "build      - go build"
 	@echo "test       - go test"
 	@echo "checkstyle - gofmt+golint+misspell"
 
-vendor:
-	$(GO) get -v github.com/Masterminds/glide
-	cd $(GOPATH)/src/github.com/Masterminds/glide && git checkout tags/v0.12.3 && go install && cd -
-	glide install
-
 get-build-deps:
-	$(GO) get $(BUILD_DEPS)
-	gometalinter --install
+	# installs gometalinter
+	curl -L https://git.io/vp6lP | sh
 
 test:
 	./gotest.sh
