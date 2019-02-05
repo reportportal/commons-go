@@ -5,11 +5,13 @@ go:
 
 env:
 - GO111MODULE=on
+- PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
 
-before_install:
+before_script:
   - make get-build-deps
+
 script:
-  - make get-build-deps build
+  - make build
 
 after_success:
  - curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/reportportal/commons-go"
