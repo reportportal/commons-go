@@ -3,6 +3,8 @@ language: go
 go:
   - 1.11.5
 
+before_install:
+  - make get-build-deps
 script:
   - make build
 
