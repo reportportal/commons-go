@@ -5,10 +5,10 @@ go:
 
 env:
 - GO111MODULE=on
-- PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
 
 before_script:
   - make get-build-deps
+  - export PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
 
 script:
   - make build
