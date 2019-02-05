@@ -5,6 +5,7 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
+	log "github.com/sirupsen/logrus"
 	"log"
 	"net/http"
 	"strconv"
@@ -85,11 +86,15 @@ func (srv *RpServer) initDefaultRoutes() {
 			rs["status"] = "UP"
 		}
 
-		WriteJSON(status, rs, w)
+		if err := WriteJSON(status, rs, w); err != nil {
+			log.Error(err)
+		}
 	})
 
 	bi := map[string]interface{}{"build": srv.buildInfo}
 	srv.mux.Get("/info", func(w http.ResponseWriter, rq *http.Request) {
-		WriteJSON(http.StatusOK, bi, w)
+		if err := WriteJSON(http.StatusOK, bi, w); err != nil {
+			log.Error(err)
+		}
 	})
 }

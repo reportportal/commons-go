@@ -22,7 +22,7 @@ get-build-deps:
 test:
 	./gotest.sh
 
-checkstyle: get-build-deps
+checkstyle:
 	gometalinter --vendor ./... --fast --disable=gas --disable=errcheck --disable=gotype --deadline 10m
 
 fmt:

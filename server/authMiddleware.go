@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strings"
 	"time"
@@ -95,7 +96,9 @@ func respondWithErrorString(w http.ResponseWriter, code int, message string) {
 
 //respondWithErrorString converts message JSON ans sends 401 to the client
 func respondWithError(w http.ResponseWriter, code int, message interface{}) {
-	WriteJSON(code, message, w)
+	if err := WriteJSON(code, message, w); err != nil {
+		log.Error(err)
+	}
 }
 
 //parseBearer parses authorization header
@@ -118,7 +121,10 @@ func getTokenInfo(token string, authServerURL string) (*User, error) {
 		Timeout: time.Second * 10,
 	}
 
-	rq, _ := http.NewRequest("GET", authServerURL, nil)
+	rq, err := http.NewRequest("GET", authServerURL, nil)
+	if err != nil {
+		log.Error(err)
+	}
 	rq.Header.Add(authorizationHeader, fmt.Sprintf("%s %s", bearerToken, token))
 	rq.Header.Add(contentTypeHeader, jsonContentType)
 	rs, e := netClient.Do(rq)
@@ -130,7 +136,11 @@ func getTokenInfo(token string, authServerURL string) (*User, error) {
 
 	if rs.StatusCode/100 > 2 {
 		uatErr := new(UserInfoErr)
-		decodeJSON(rs, uatErr)
+
+		if err := decodeJSON(rs, uatErr); err != nil {
+			log.Error(err)
+		}
+
 		e = &authError{
 			errorDesc:  uatErr,
 			statusCode: rs.StatusCode,
@@ -138,7 +148,9 @@ func getTokenInfo(token string, authServerURL string) (*User, error) {
 		return nil, e
 	}
 	user := new(User)
-	decodeJSON(rs, user)
+	if err := decodeJSON(rs, user); err != nil {
+		log.Error(err)
+	}
 	return user, nil
 }
 
