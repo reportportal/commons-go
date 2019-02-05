@@ -8,8 +8,6 @@ BINARY_DIR=bin
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 PACKAGES_NOVENDOR = $(shell glide novendor)
 
-BUILD_DEPS:= github.com/alecthomas/gometalinter
-
 .PHONY: test build
 
 help:
@@ -25,7 +23,7 @@ test:
 	./gotest.sh
 
 checkstyle: get-build-deps
-	gometalinter --vendor ./... --fast --disable=gas --disable=errcheck --disable=gotype --deadline 10m
+	bin/gometalinter --vendor ./... --fast --disable=gas --disable=errcheck --disable=gotype --deadline 10m
 
 fmt:
 	gofmt -l -w -s ${GOFILES_NOVENDOR}
