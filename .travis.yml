@@ -6,7 +6,7 @@ go:
 before_install:
   - make get-build-deps
 script:
-  - make build
+  - make get-build-deps build
 
 after_success:
  - curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/reportportal/commons-go"
