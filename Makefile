@@ -6,7 +6,6 @@ BUILD_DATE = `date +%FT%T%z`
 GO = go
 BINARY_DIR=bin
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
-PACKAGES_NOVENDOR = $(shell glide novendor)
 
 .PHONY: test build
 
@@ -30,13 +29,13 @@ fmt:
 
 # Builds the project
 build: test
-	$(GO) build $(PACKAGES_NOVENDOR)
+	$(GO) build ./...
 
 rewrite-import-paths:
 	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"github.com/reportportal/commons-go%\"gopkg.in/reportportal/commons-go.v5%g '{}' \;
 
 restore-import-paths:
-	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"gopkg.in/reportportal/commons-go.v1%\"github.com/reportportal/commons-go%g '{}' \;
+	find . -not -path "./vendor/*" -name '*.go' -type f -execdir sed -i '' s%\"gopkg.in/reportportal/commons-go.v5%\"github.com/reportportal/commons-go%g '{}' \;
 
 clean:
 	if [ -d ${BINARY_DIR} ] ; then rm -r ${BINARY_DIR} ; fi
