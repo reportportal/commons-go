@@ -6,7 +6,6 @@ import (
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
 	log "github.com/sirupsen/logrus"
-	"log"
 	"net/http"
 	"strconv"
 )
