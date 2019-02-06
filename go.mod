@@ -27,7 +27,7 @@ require (
 	github.com/sirupsen/logrus v1.3.0
 	golang.org/x/crypto v0.0.0-20190130090550-b01c7a725664
 	golang.org/x/net v0.0.0-20190125091013-d26f9f9a57f3
-	golang.org/x/sys v0.0.0-20190130150945-aca44879d564
+	golang.org/x/sys v0.0.0-20190204203706-41f3e6584952
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/go-playground/validator.v9 v9.26.0
 	gopkg.in/yaml.v2 v2.2.2 // indirect
