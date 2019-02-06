@@ -11,7 +11,7 @@ before_script:
   - export PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
 
 script:
-  - make build
+  - make build checkstyle
 
 after_success:
  - curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/reportportal/commons-go"

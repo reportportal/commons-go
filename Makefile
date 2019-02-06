@@ -29,7 +29,7 @@ fmt:
 	gofmt -l -w -s ${GOFILES_NOVENDOR}
 
 # Builds the project
-build: checkstyle test
+build: test
 	$(GO) build $(PACKAGES_NOVENDOR)
 
 rewrite-import-paths:
