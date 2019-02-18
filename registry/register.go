@@ -2,7 +2,7 @@ package registry
 
 import (
 	"github.com/reportportal/commons-go/commons"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"time"
 )
 
@@ -28,7 +28,7 @@ func Register(discovery ServiceDiscovery) {
 	}
 
 	commons.ShutdownHook(func() error {
-		log.Println("try to deregister")
+		log.Warn("try to deregister")
 		return Deregister(discovery)
 
 	})
@@ -43,9 +43,9 @@ func tryRegister(discovery ServiceDiscovery) error {
 	return commons.Retry(retryAttempts, retryTimeout, func() error {
 		e := discovery.Register()
 		if nil != e {
-			log.Printf("Cannot register service: %s", e)
+			log.Error("Cannot register service: %s", e)
 		} else {
-			log.Print("Service Registered!")
+			log.Info("Service Registered!")
 		}
 		return e
 	})

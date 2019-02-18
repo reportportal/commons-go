@@ -2,7 +2,7 @@ package commons
 
 import (
 	"fmt"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net"
 	"os"
 	"os/signal"
@@ -43,7 +43,7 @@ func Retry(attempts int, timeout time.Duration, callback func() error) (err erro
 
 		//time.Sleep(timeout)
 		<-time.After(timeout)
-		log.Println("retrying...")
+		log.Warn("retrying...")
 	}
 	return fmt.Errorf("after %d attempts, last error: %s", attempts, err)
 }
@@ -59,7 +59,7 @@ func ShutdownHook(hook func() error) {
 		<-c // that will block until a message is received on
 		e := hook()
 		if nil != e {
-			log.Println("Shutdown hook error: ", e)
+			log.Error("Shutdown hook error: ", e)
 		}
 
 		os.Exit(1)

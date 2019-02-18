@@ -2,7 +2,7 @@ package commons
 
 import (
 	"errors"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net"
 	"reflect"
 	"regexp"
@@ -49,7 +49,7 @@ func TestRetryAttempts(t *testing.T) {
 		return errors.New("some error")
 	})
 
-	log.Println(i)
+	log.Error(i)
 	if 2 != i {
 		t.Errorf("Incorrect attempts count: %d", i)
 	}

@@ -70,8 +70,11 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		case HTTPError:
 			// We can retrieve the status here and write out a specific
 			// HTTP status code.
-			log.Printf("HTTP %d - %s", e.Status(), e)
-			WriteJSON(e.Status(), map[string]string{"error": e.Error()}, w)
+			log.Info("HTTP %d - %s", e.Status(), e)
+			er := WriteJSON(e.Status(), map[string]string{"error": e.Error()}, w)
+			if er != nil {
+				log.Error(er)
+			}
 		default:
 			// Any error types we don't specifically look out for default
 			// to serving a HTTP 500

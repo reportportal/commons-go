@@ -5,7 +5,7 @@ import (
 	"github.com/hashicorp/consul/api"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"strconv"
 )
 
@@ -57,7 +57,7 @@ func (ec *consulClient) Register() error {
 func (ec *consulClient) Deregister() error {
 	e := ec.c.Agent().ServiceDeregister(ec.reg.ID)
 	if nil != e {
-		log.Print(e)
+		log.Error(e)
 	}
 	return e
 }

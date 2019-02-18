@@ -6,7 +6,7 @@ import (
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
 	"github.com/reportportal/commons-go/registry"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 )
@@ -72,7 +72,7 @@ func (srv *RpServer) StartServer() {
 		registry.Register(srv.Sd)
 	}
 	// listen and server on mentioned port
-	log.Printf("Starting on port %d", srv.cfg.Server.Port)
+	log.Info("Starting on port %d", srv.cfg.Server.Port)
 	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(srv.cfg.Server.Port), srv.mux))
 }
 
@@ -98,11 +98,17 @@ func (srv *RpServer) initDefaultRoutes() {
 			rs["status"] = "UP"
 		}
 
-		WriteJSON(status, rs, w)
+		e := WriteJSON(status, rs, w)
+		if nil != e {
+			log.Error(e)
+		}
 	})
 
 	bi := map[string]interface{}{"build": srv.buildInfo}
 	srv.mux.Get("/info", func(w http.ResponseWriter, rq *http.Request) {
-		WriteJSON(http.StatusOK, bi, w)
+		e := WriteJSON(http.StatusOK, bi, w)
+		if nil != e {
+			log.Error(e)
+		}
 	})
 }
