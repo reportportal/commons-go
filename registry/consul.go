@@ -25,15 +25,19 @@ func NewConsul(cfg *conf.RpConfig) ServiceDiscovery {
 		log.Fatal("Cannot create Consul client!")
 	}
 
-	baseURL := HTTP + cfg.Server.Hostname + ":" + strconv.Itoa(cfg.Server.Port)
+	host := cfg.Server.Hostname
+	if cfg.Consul.PreferIP {
+		host = commons.GetLocalIP()
+	}
+
 	registration := &api.AgentServiceRegistration{
-		ID:      fmt.Sprintf("%s-%s-%d", cfg.AppName, cfg.Server.Hostname, cfg.Server.Port),
+		ID:      fmt.Sprintf("%s-%s-%d", cfg.AppName, host, cfg.Server.Port),
 		Port:    cfg.Server.Port,
 		Address: commons.GetLocalIP(),
 		Name:    cfg.AppName,
 		Tags:    cfg.Consul.Tags,
 		Check: &api.AgentServiceCheck{
-			HTTP:     baseURL + "/health",
+			HTTP:     HTTP + host + ":" + strconv.Itoa(cfg.Server.Port) + "/health",
 			Interval: fmt.Sprintf("%ds", cfg.Consul.PollInterval),
 		},
 	}

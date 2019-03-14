@@ -29,6 +29,7 @@ type ConsulConfig struct {
 	Scheme       string   `env:"RP_CONSUL_SCHEME" envDefault:"http"`
 	Token        string   `env:"RP_CONSUL_TOKEN"`
 	PollInterval int      `env:"RP_CONSUL_POLL_INTERVAL" envDefault:"5"`
+	PreferIP     bool     `env:"RP_CONSUL_PREFER_IP_ADDRESS" envDefault:"false"`
 	Tags         []string `env:"RP_CONSUL_TAGS"`
 }
 
