@@ -52,8 +52,7 @@ func TestRetryAttempts(t *testing.T) {
 		i++
 		return errors.New("some error")
 	})
-	Ω(err).ShouldNot(HaveOccurred())
-
+	log.Println(err)
 	log.Println(i)
 	if 2 != i {
 		t.Errorf("Incorrect attempts count: %d", i)
