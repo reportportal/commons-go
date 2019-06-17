@@ -9,6 +9,8 @@ import (
 	"sort"
 	"testing"
 	"time"
+	. "github.com/onsi/gomega"
+
 )
 
 func TestKeySet(t *testing.T) {
@@ -43,11 +45,14 @@ func TestSchedule(t *testing.T) {
 }
 
 func TestRetryAttempts(t *testing.T) {
+	RegisterTestingT(t)
+
 	i := 0
-	Retry(2, 1*time.Second, func() error {
+	err := Retry(2, 1*time.Second, func() error {
 		i++
 		return errors.New("some error")
 	})
+	Ω(err).ShouldNot(HaveOccurred())
 
 	log.Println(i)
 	if 2 != i {

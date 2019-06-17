@@ -16,13 +16,14 @@ help:
 
 get-build-deps:
 	# installs gometalinter
-	curl -L https://git.io/vp6lP | sh
+	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.17.1
 
 test:
 	./gotest.sh
 
 checkstyle:
-	gometalinter --vendor ./... --fast --disable=gas --disable=errcheck --disable=gotype --deadline 10m
+	golangci-lint run --deadline=60m -v ./...
+
 
 fmt:
 	gofmt -l -w -s ${GOFILES_NOVENDOR}

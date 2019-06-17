@@ -31,8 +31,8 @@ func TestHandler(t *testing.T) {
 	}})
 
 	mux.Handle("/ok", Handler{func(w http.ResponseWriter, r *http.Request) error {
-		w.Write([]byte(`{}`))
-		return nil
+		_, err := w.Write([]byte(`{}`))
+		return err
 	}})
 
 	req, _ := http.NewRequest("GET", "/error", nil)
