@@ -15,8 +15,8 @@ help:
 	@echo "checkstyle - gofmt+golint+misspell"
 
 get-build-deps:
-	# installs gometalinter
-	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.17.1
+	# installs golangci-lint
+	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 
 test:
 	./gotest.sh
