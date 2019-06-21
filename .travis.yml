@@ -1,18 +1,18 @@
 sudo: false
 language: go
 go:
-- 1.11.5
+  - 1.12.6
 
 env:
 - GO111MODULE=on
 
 before_script:
-- make get-build-deps
-- export PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
+  - make get-build-deps
+  - export PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
 
 script:
-- make build checkstyle
+  - make build checkstyle
 
 after_success:
-- curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/reportportal/commons-go"
-- bash <(curl -s https://codecov.io/bash)
+ - curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/reportportal/commons-go"
+ - bash <(curl -s https://codecov.io/bash)

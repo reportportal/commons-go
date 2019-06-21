@@ -5,8 +5,7 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
-	"github.com/reportportal/commons-go/registry"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 )
@@ -14,26 +13,17 @@ import (
 //RpServer represents ReportPortal micro-service instance
 type RpServer struct {
 	mux       *chi.Mux
-	cfg       *conf.RpConfig
-	Sd        registry.ServiceDiscovery
+	cfg       *conf.ServerConfig
 	buildInfo *commons.BuildInfo
 	hChecks   []HealthCheck
 }
 
 //New creates new instance of RpServer struct
-func New(cfg *conf.RpConfig, buildInfo *commons.BuildInfo) *RpServer {
-
-	var sd registry.ServiceDiscovery
-	switch cfg.Registry {
-	case conf.Consul:
-		cfg.Consul.Tags = append(cfg.Consul.Tags, "statusPageUrlPath=/info", "healthCheckUrlPath=/health")
-		sd = registry.NewConsul(cfg)
-	}
+func New(cfg *conf.ServerConfig, buildInfo *commons.BuildInfo) *RpServer {
 
 	srv := &RpServer{
 		mux:       chi.NewMux(),
 		cfg:       cfg,
-		Sd:        sd,
 		hChecks:   []HealthCheck{},
 		buildInfo: buildInfo,
 	}
@@ -68,12 +58,9 @@ func (srv *RpServer) AddHealthCheckFunc(f func() error) {
 func (srv *RpServer) StartServer() {
 	srv.initDefaultRoutes()
 
-	if nil != srv.Sd {
-		registry.Register(srv.Sd)
-	}
 	// listen and server on mentioned port
-	log.Printf("Starting on port %d", srv.cfg.Server.Port)
-	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(srv.cfg.Server.Port), srv.mux))
+	log.Printf("Starting on port %d", srv.cfg.Port)
+	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(srv.cfg.Port), srv.mux))
 }
 
 //initDefaultRoutes initializes default routes
@@ -98,11 +85,15 @@ func (srv *RpServer) initDefaultRoutes() {
 			rs["status"] = "UP"
 		}
 
-		WriteJSON(status, rs, w)
+		if err := WriteJSON(status, rs, w); err != nil {
+			log.Error(err)
+		}
 	})
 
 	bi := map[string]interface{}{"build": srv.buildInfo}
 	srv.mux.Get("/info", func(w http.ResponseWriter, rq *http.Request) {
-		WriteJSON(http.StatusOK, bi, w)
+		if err := WriteJSON(http.StatusOK, bi, w); err != nil {
+			log.Error(err)
+		}
 	})
 }

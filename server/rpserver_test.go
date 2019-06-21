@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/reportportal/commons-go/commons"
 	"github.com/reportportal/commons-go/conf"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"os"
 )
@@ -21,7 +22,9 @@ func ExampleRpServer() {
 
 	rp.WithRouter(func(router *chi.Mux) {
 		router.Get("/ping", func(w http.ResponseWriter, rq *http.Request) {
-			WriteJSON(http.StatusOK, Person{"av", 20}, w)
+			if err := WriteJSON(http.StatusOK, Person{"av", 20}, w); err != nil {
+				logrus.Error(err)
+			}
 		})
 	})
 
@@ -45,7 +48,9 @@ func ExampleRpServer_StartServer() {
 		secured.Use(RequireRole("USER", authServerURL))
 
 		me := func(w http.ResponseWriter, rq *http.Request) {
-			WriteJSON(http.StatusOK, rq.Context().Value("user"), w)
+			if err := WriteJSON(http.StatusOK, rq.Context().Value("user"), w); err != nil {
+				logrus.Error(err)
+			}
 
 		}
 		secured.HandleFunc("/me", me)

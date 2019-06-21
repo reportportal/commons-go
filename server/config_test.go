@@ -1,4 +1,4 @@
-package conf
+package server
 
 import (
 	. "github.com/onsi/gomega"
@@ -18,9 +18,9 @@ func TestLoadConfigWithParameters(t *testing.T) {
 	os.Setenv("RP_PARAMETERS_PARAM", "env_value")
 
 	rpConf := struct {
-		*ServerConfig
+		*Config
 		Param string `env:"RP_PARAMETERS_PARAM"`
-	}{ServerConfig: EmptyConfig()}
+	}{Config: EmptyConfig()}
 
 	err := LoadConfig(&rpConf)
 	Ω(err).ShouldNot(HaveOccurred())

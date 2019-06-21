@@ -19,13 +19,17 @@ func TestNoHandlerFound(t *testing.T) {
 	rr := httptest.NewRecorder()
 	notFoundHandler := func(w http.ResponseWriter, rq *http.Request) {
 		w.WriteHeader(404)
-		w.Write([]byte("not found"))
+		if _, err := w.Write([]byte("not found")); err != nil {
+			t.Fatal(err)
+		}
 	}
 
 	mux := chi.NewMux()
 	mux.NotFound(notFoundHandler)
 	mux.Get("/fake", func(w http.ResponseWriter, rq *http.Request) {
-		WriteJSON(http.StatusOK, map[string]string{"status": "OK"}, w)
+		if err := WriteJSON(http.StatusOK, map[string]string{"status": "OK"}, w); err != nil {
+			t.Fatal(err)
+		}
 
 	})
 	mux.ServeHTTP(rr, req)
@@ -56,14 +60,18 @@ func TestHandlerFound(t *testing.T) {
 	rr := httptest.NewRecorder()
 	notFoundHandler := func(w http.ResponseWriter, rq *http.Request) {
 		w.WriteHeader(404)
-		w.Write([]byte("not found"))
+		if _, err := w.Write([]byte("not found")); err != nil {
+			t.Fatal(err)
+		}
 	}
 
 	mux := chi.NewMux()
 	mux.NotFound(notFoundHandler)
 	mux.HandleFunc("/health-check", func(w http.ResponseWriter, rq *http.Request) {
 		w.WriteHeader(400)
-		w.Write([]byte("some error"))
+		if _, err := w.Write([]byte("some error")); err != nil {
+			t.Fatal(err)
+		}
 	})
 	mux.ServeHTTP(rr, req)
 

@@ -47,6 +47,14 @@ func (se StatusError) Status() int {
 	return se.Code
 }
 
+//StackTrace returns stacktrace of child error or nil
+func (se StatusError) StackTrace() errors.StackTrace {
+	if se, ok := se.Err.(stackTracer); ok {
+		return se.StackTrace()
+	}
+	return nil
+}
+
 // The Handler struct that takes a configured Env and a function matching
 // our useful signature.
 type Handler struct {
@@ -70,8 +78,10 @@ func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		case HTTPError:
 			// We can retrieve the status here and write out a specific
 			// HTTP status code.
-			log.Printf("HTTP %d - %s", e.Status(), e)
-			WriteJSON(e.Status(), map[string]string{"error": e.Error()}, w)
+			log.Printf("HTTP %d - %s\n", e.Status(), e)
+			if err := WriteJSON(e.Status(), map[string]string{"error": e.Error()}, w); err != nil {
+				log.Error(err)
+			}
 		default:
 			// Any error types we don't specifically look out for default
 			// to serving a HTTP 500

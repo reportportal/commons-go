@@ -1,12 +1,12 @@
-package conf
+package server
 
 import (
 	"fmt"
 	"github.com/caarlos0/env"
 )
 
-//ServerConfig represents Main service configuration
-type ServerConfig struct {
+//Config represents Main service configuration
+type Config struct {
 	Port int `env:"RP_SERVER_PORT" envDefault:"8080"`
 }
 
@@ -22,6 +22,6 @@ func LoadConfig(cfg interface{}) error {
 }
 
 //EmptyConfig creates empty config
-func EmptyConfig() *ServerConfig {
-	return &ServerConfig{}
+func EmptyConfig() *Config {
+	return &Config{}
 }
