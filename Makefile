@@ -52,4 +52,4 @@ release:
 	git push origin "refs/tags/${v}"
 	git checkout master
 # 	git branch -D temp-${v}
-	git push origin --delete temp-${v}
+# 	git push origin --delete temp-${v}
