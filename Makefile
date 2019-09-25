@@ -22,7 +22,7 @@ test:
 	./gotest.sh
 
 checkstyle:
-	golangci-lint run --deadline=60m -v ./...
+	golangci-lint run --deadline=60m ./...
 
 
 fmt:
