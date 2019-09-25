@@ -51,5 +51,5 @@ release:
 	git tag -a ${v} -m "creating tag ${v}"
 	git push origin "refs/tags/${v}"
 	git checkout master
-	git branch -D temp-${v}
+# 	git branch -D temp-${v}
 	git push origin --delete temp-${v}
