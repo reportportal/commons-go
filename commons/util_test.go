@@ -2,6 +2,7 @@ package commons
 
 import (
 	"errors"
+	. "github.com/onsi/gomega"
 	"log"
 	"net"
 	"reflect"
@@ -9,8 +10,6 @@ import (
 	"sort"
 	"testing"
 	"time"
-	. "github.com/onsi/gomega"
-
 )
 
 func TestKeySet(t *testing.T) {

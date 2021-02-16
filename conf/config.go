@@ -2,7 +2,7 @@ package conf
 
 import (
 	"fmt"
-	"github.com/caarlos0/env"
+	"github.com/caarlos0/env/v6"
 )
 
 //ServerConfig represents Main service configuration
