@@ -1,6 +1,6 @@
 package server
 
-import "golang.org/x/net/context"
+import "context"
 
 //cannot use string as context key so we need to introduce own type
 type ctxKey string
