@@ -64,36 +64,39 @@ func (srv *RpServer) StartServer() {
 }
 
 // initDefaultRoutes initializes default routes
+
 func (srv *RpServer) initDefaultRoutes() {
-	srv.mux.Get("/health", func(w http.ResponseWriter, rq *http.Request) {
+	srv.mux.Get("/health", srv.healthHandler)
+	srv.mux.Get("/info", srv.infoHandler)
+}
 
-		//collect status results
-		var errs []string
-		for _, hc := range srv.hChecks {
-			if err := hc.Check(); nil != err {
-				errs = append(errs, err.Error())
-			}
-		}
-
-		rs := map[string]interface{}{}
-		status := http.StatusOK
-		if len(errs) > 0 {
-			rs["status"] = "DOWN"
-			rs["errors"] = errs
-			status = http.StatusBadRequest
-		} else {
-			rs["status"] = "UP"
-		}
-
-		if err := WriteJSON(status, rs, w); err != nil {
-			log.Error(err)
-		}
-	})
-
+func (srv *RpServer) infoHandler(w http.ResponseWriter, rq *http.Request) {
 	bi := map[string]interface{}{"build": srv.buildInfo}
-	srv.mux.Get("/info", func(w http.ResponseWriter, rq *http.Request) {
-		if err := WriteJSON(http.StatusOK, bi, w); err != nil {
-			log.Error(err)
+	if err := WriteJSON(http.StatusOK, bi, w); err != nil {
+		log.Error(err)
+	}
+}
+func (srv *RpServer) healthHandler(w http.ResponseWriter, rq *http.Request) {
+
+	//collect status results
+	var errs []string
+	for _, hc := range srv.hChecks {
+		if err := hc.Check(); nil != err {
+			errs = append(errs, err.Error())
 		}
-	})
+	}
+
+	rs := map[string]interface{}{}
+	status := http.StatusOK
+	if len(errs) > 0 {
+		rs["status"] = "DOWN"
+		rs["errors"] = errs
+		status = http.StatusBadRequest
+	} else {
+		rs["status"] = "UP"
+	}
+
+	if err := WriteJSON(status, rs, w); err != nil {
+		log.Error(err)
+	}
 }
