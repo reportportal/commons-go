@@ -10,9 +10,9 @@ import (
 	"time"
 )
 
-//Schedule executes callback func with some period.
-//no delays force callback to execute first time immediately
-//Function returns channel to stop scheduled execution
+// Schedule executes callback func with some period.
+// no delays force callback to execute first time immediately
+// Function returns channel to stop scheduled execution
 func Schedule(timeout time.Duration, noDelay bool, callback func()) chan<- struct{} {
 	ticker := time.NewTicker(timeout)
 	quit := make(chan struct{})
@@ -33,7 +33,7 @@ func Schedule(timeout time.Duration, noDelay bool, callback func()) chan<- struc
 	return quit
 }
 
-//Retry executes callback func until it executes successfully
+// Retry executes callback func until it executes successfully
 func Retry(attempts int, timeout time.Duration, callback func() error) (err error) {
 	for i := 0; i <= attempts-1; i++ {
 		err = callback()
@@ -48,7 +48,7 @@ func Retry(attempts int, timeout time.Duration, callback func() error) (err erro
 	return fmt.Errorf("after %d attempts, last error: %s", attempts, err)
 }
 
-//ShutdownHook adds function to be performed on app shutdown
+// ShutdownHook adds function to be performed on app shutdown
 func ShutdownHook(hook func() error) {
 	c := make(chan os.Signal, 1) // Create a channel accepting os.Signal
 	// Bind a given os.Signal to the channel we just created
@@ -66,7 +66,7 @@ func ShutdownHook(hook func() error) {
 	}()
 }
 
-//GetLocalIP returns first non-loopback IP address
+// GetLocalIP returns first non-loopback IP address
 func GetLocalIP() string {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
@@ -83,7 +83,7 @@ func GetLocalIP() string {
 	return ""
 }
 
-//KeySet returns array of map keys
+// KeySet returns array of map keys
 func KeySet(m map[string]interface{}) []string {
 	keys := make([]string, len(m))
 	i := 0

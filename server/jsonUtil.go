@@ -17,7 +17,7 @@ var jsContentTypeValue = []string{"application/javascript; charset=utf-8"}
 // use a single instance of Validate, it caches struct info
 var validate = validator.New()
 
-//WriteJSON serializes body to provided writer
+// WriteJSON serializes body to provided writer
 func WriteJSON(status int, body interface{}, w http.ResponseWriter) error {
 	header := w.Header()
 	if val := header[contentTypeHeader]; len(val) == 0 {
@@ -27,7 +27,7 @@ func WriteJSON(status int, body interface{}, w http.ResponseWriter) error {
 	return json.NewEncoder(w).Encode(body)
 }
 
-//WriteJSONP serializes body as JSONP
+// WriteJSONP serializes body as JSONP
 func WriteJSONP(status int, body interface{}, callback string, w http.ResponseWriter) error {
 	header := w.Header()
 	if val := header[contentTypeHeader]; len(val) == 0 {
@@ -43,7 +43,7 @@ func WriteJSONP(status int, body interface{}, callback string, w http.ResponseWr
 	return err
 }
 
-//ReadJSON reads
+// ReadJSON reads
 func ReadJSON(rq *http.Request, val interface{}) error {
 	defer rq.Body.Close()
 
@@ -60,7 +60,7 @@ func ReadJSON(rq *http.Request, val interface{}) error {
 
 }
 
-//Validate validates struct
+// Validate validates struct
 func Validate(val interface{}) error {
 	err := validate.Struct(val)
 	if nil != err {

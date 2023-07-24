@@ -9,25 +9,25 @@ import (
 	"time"
 )
 
-//User represents logged-in user
+// User represents logged-in user
 type User struct {
 	User        string
 	Authorities []string
 }
 
-//UserInfoErr represents error response from ReportPortal's UAT endpoint
+// UserInfoErr represents error response from ReportPortal's UAT endpoint
 type UserInfoErr struct {
 	Error            string `json:"error"`
 	ErrorDescription string `json:"error_description"`
 }
 
-//authError represents error (response and status code) from ReportPortal's UAT endpoint
+// authError represents error (response and status code) from ReportPortal's UAT endpoint
 type authError struct {
 	errorDesc  *UserInfoErr
 	statusCode int
 }
 
-//Error represents implementation of default golang's Error interface
+// Error represents implementation of default golang's Error interface
 func (e *authError) Error() string {
 	r, err := json.Marshal(e.errorDesc)
 	if nil != e {
@@ -43,13 +43,13 @@ const (
 	unknownAuthorityWeight = 0
 )
 
-//Authorities represents available ReportPortal roles
+// Authorities represents available ReportPortal roles
 var Authorities = map[string]int{
 	"ROLE_USER":          1,
 	"ROLE_ADMINISTRATOR": 2,
 }
 
-//RequireRole checks whether request auth represented by ReportPortal user with provided or higher role
+// RequireRole checks whether request auth represented by ReportPortal user with provided or higher role
 func RequireRole(role string, authServerURL string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		authority := "ROLE_" + strings.ToUpper(role)
@@ -84,24 +84,24 @@ func RequireRole(role string, authServerURL string) func(http.Handler) http.Hand
 	}
 }
 
-//notAuthorized sends 401 error to the client
+// notAuthorized sends 401 error to the client
 func notAuthorized(w http.ResponseWriter) {
 	respondWithErrorString(w, http.StatusUnauthorized, "Not Authorized")
 }
 
-//respondWithErrorString wraps error with JSON ans sends 401 to the client
+// respondWithErrorString wraps error with JSON ans sends 401 to the client
 func respondWithErrorString(w http.ResponseWriter, code int, message string) {
 	respondWithError(w, code, map[string]string{"error": message})
 }
 
-//respondWithErrorString converts message JSON ans sends 401 to the client
+// respondWithErrorString converts message JSON ans sends 401 to the client
 func respondWithError(w http.ResponseWriter, code int, message interface{}) {
 	if err := WriteJSON(code, message, w); err != nil {
 		log.Error(err)
 	}
 }
 
-//parseBearer parses authorization header
+// parseBearer parses authorization header
 func parseBearer(r *http.Request) (string, error) {
 	authHeader := r.Header.Get(authorizationHeader)
 	if "" != authHeader {
@@ -115,7 +115,7 @@ func parseBearer(r *http.Request) (string, error) {
 	return r.URL.Query().Get("access_token"), nil
 }
 
-//getTokenInfo - obtains token info from ReportPortal's UAT service
+// getTokenInfo - obtains token info from ReportPortal's UAT service
 func getTokenInfo(token string, authServerURL string) (*User, error) {
 	var netClient = &http.Client{
 		Timeout: time.Second * 10,
@@ -158,7 +158,7 @@ func decodeJSON(rs *http.Response, v interface{}) error {
 	return json.NewDecoder(rs.Body).Decode(v)
 }
 
-//hasAuthority checks whether user authorities has at least one which has equal or higher weight than expected authority
+// hasAuthority checks whether user authorities has at least one which has equal or higher weight than expected authority
 func hasAuthority(ea string, ua []string) bool {
 	weight := Authorities[ea]
 	//Role is unknown
