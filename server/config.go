@@ -2,15 +2,15 @@ package server
 
 import (
 	"fmt"
-	"github.com/caarlos0/env/v6"
+	"github.com/caarlos0/env/v9"
 )
 
-//Config represents Main service configuration
+// Config represents Main service configuration
 type Config struct {
 	Port int `env:"RP_SERVER_PORT" envDefault:"8080"`
 }
 
-//LoadConfig loads configuration from provided file and serializes it into RpConfig struct
+// LoadConfig loads configuration from provided file and serializes it into RpConfig struct
 func LoadConfig(cfg interface{}) error {
 	err := env.Parse(cfg)
 	if err != nil {
@@ -21,7 +21,7 @@ func LoadConfig(cfg interface{}) error {
 	return nil
 }
 
-//EmptyConfig creates empty config
+// EmptyConfig creates empty config
 func EmptyConfig() *Config {
 	return &Config{}
 }

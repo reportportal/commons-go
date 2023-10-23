@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-//stackTracer is an error containing stack trace
+// stackTracer is an error containing stack trace
 type stackTracer interface {
 	StackTrace() errors.StackTrace
 }
@@ -27,27 +27,27 @@ type StatusError struct {
 	Err  error
 }
 
-//NewStatusError creates new StatusError
+// NewStatusError creates new StatusError
 func NewStatusError(code int, err string) StatusError {
 	return StatusError{code, errs.New(err)}
 }
 
-//ToStatusError creates new StatusError
+// ToStatusError creates new StatusError
 func ToStatusError(code int, err error) StatusError {
 	return StatusError{code, err}
 }
 
-//Error allows StatusError to satisfy the error interface.
+// Error allows StatusError to satisfy the error interface.
 func (se StatusError) Error() string {
 	return se.Err.Error()
 }
 
-//Status returns our HTTP status code.
+// Status returns our HTTP status code.
 func (se StatusError) Status() int {
 	return se.Code
 }
 
-//StackTrace returns stacktrace of child error or nil
+// StackTrace returns stacktrace of child error or nil
 func (se StatusError) StackTrace() errors.StackTrace {
 	if se, ok := se.Err.(stackTracer); ok {
 		return se.StackTrace()
