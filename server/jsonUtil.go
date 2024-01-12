@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"github.com/pkg/errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -47,7 +47,7 @@ func WriteJSONP(status int, body interface{}, callback string, w http.ResponseWr
 func ReadJSON(rq *http.Request, val interface{}) error {
 	defer rq.Body.Close()
 
-	rqBody, err := ioutil.ReadAll(rq.Body)
+	rqBody, err := io.ReadAll(rq.Body)
 	if err != nil {
 		return errors.Wrap(err, "Cannot read request body")
 	}

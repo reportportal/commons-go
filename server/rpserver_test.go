@@ -2,12 +2,10 @@ package server
 
 import (
 	"github.com/go-chi/chi/v5"
-	"github.com/gorilla/handlers"
 	"github.com/reportportal/commons-go/v5/commons"
 	"github.com/reportportal/commons-go/v5/conf"
 	"github.com/sirupsen/logrus"
 	"net/http"
-	"os"
 )
 
 type Person struct {
@@ -40,9 +38,6 @@ func ExampleRpServer_StartServer() {
 	srv := New(rpConf, commons.GetBuildInfo())
 
 	srv.WithRouter(func(mux *chi.Mux) {
-		mux.Use(func(next http.Handler) http.Handler {
-			return handlers.LoggingHandler(os.Stdout, next)
-		})
 
 		secured := chi.NewMux()
 		secured.Use(RequireRole("USER", authServerURL))

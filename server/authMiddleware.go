@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -63,7 +64,8 @@ func RequireRole(role string, authServerURL string) func(http.Handler) http.Hand
 
 			info, err := getTokenInfo(token, authServerURL)
 			if err != nil {
-				authErr, ok := err.(*authError)
+				var authErr *authError
+				ok := errors.As(err, &authErr)
 				if !ok {
 					notAuthorized(w)
 				} else {
