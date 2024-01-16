@@ -1,11 +1,13 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
+	"github.com/sirupsen/logrus"
+
 	"github.com/reportportal/commons-go/v5/commons"
 	"github.com/reportportal/commons-go/v5/conf"
-	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 type Person struct {
@@ -27,7 +29,6 @@ func ExampleRpServer() {
 	})
 
 	rp.StartServer()
-
 }
 
 func ExampleRpServer_StartServer() {
@@ -38,7 +39,6 @@ func ExampleRpServer_StartServer() {
 	srv := New(rpConf, commons.GetBuildInfo())
 
 	srv.WithRouter(func(mux *chi.Mux) {
-
 		secured := chi.NewMux()
 		secured.Use(RequireRole("USER", authServerURL))
 
@@ -46,12 +46,10 @@ func ExampleRpServer_StartServer() {
 			if err := WriteJSON(http.StatusOK, rq.Context().Value("user"), w); err != nil {
 				logrus.Error(err)
 			}
-
 		}
 		secured.HandleFunc("/me", me)
 
 		mux.Handle("/", secured)
-
 	})
 
 	srv.StartServer()

@@ -9,7 +9,6 @@ import (
 )
 
 func TestBuildInfo(t *testing.T) {
-
 	buildInfo := GetBuildInfo()
 	buildInfo.Name = "test"
 	rr := httptest.NewRecorder()
@@ -25,5 +24,4 @@ func TestBuildInfo(t *testing.T) {
 		t.Errorf("incorrect build format response: got %v want %v",
 			rr.Body.String(), expected)
 	}
-
 }

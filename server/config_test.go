@@ -1,9 +1,10 @@
 package server
 
 import (
-	. "github.com/onsi/gomega"
 	"os"
 	"testing"
+
+	. "github.com/onsi/gomega"
 )
 
 func TestLoadEmptyConfig(t *testing.T) {

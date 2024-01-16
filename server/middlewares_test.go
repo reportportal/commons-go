@@ -1,10 +1,11 @@
 package server
 
 import (
-	"github.com/go-chi/chi/v5"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func TestNoHandlerFound(t *testing.T) {
@@ -30,7 +31,6 @@ func TestNoHandlerFound(t *testing.T) {
 		if err := WriteJSON(http.StatusOK, map[string]string{"status": "OK"}, w); err != nil {
 			t.Fatal(err)
 		}
-
 	})
 	mux.ServeHTTP(rr, req)
 

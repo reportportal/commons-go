@@ -2,6 +2,7 @@ package conf
 
 import (
 	"fmt"
+
 	"github.com/caarlos0/env/v10"
 )
 

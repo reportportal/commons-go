@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strings"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // User represents logged-in user
@@ -31,7 +32,7 @@ type authError struct {
 // Error represents implementation of default golang's Error interface
 func (e *authError) Error() string {
 	r, err := json.Marshal(e.errorDesc)
-	if nil != e {
+	if err != nil {
 		return err.Error()
 	}
 	return string(r)
@@ -51,7 +52,7 @@ var Authorities = map[string]int{
 }
 
 // RequireRole checks whether request auth represented by ReportPortal user with provided or higher role
-func RequireRole(role string, authServerURL string) func(http.Handler) http.Handler {
+func RequireRole(role, authServerURL string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		authority := "ROLE_" + strings.ToUpper(role)
 		fn := func(w http.ResponseWriter, rq *http.Request) {
@@ -118,8 +119,8 @@ func parseBearer(r *http.Request) (string, error) {
 }
 
 // getTokenInfo - obtains token info from ReportPortal's UAT service
-func getTokenInfo(token string, authServerURL string) (*User, error) {
-	var netClient = &http.Client{
+func getTokenInfo(token, authServerURL string) (*User, error) {
+	netClient := &http.Client{
 		Timeout: time.Second * 10,
 	}
 
@@ -163,12 +164,12 @@ func decodeJSON(rs *http.Response, v interface{}) error {
 // hasAuthority checks whether user authorities has at least one which has equal or higher weight than expected authority
 func hasAuthority(ea string, ua []string) bool {
 	weight := Authorities[ea]
-	//Role is unknown
+	// Role is unknown
 	if unknownAuthorityWeight == weight {
 		return false
 	}
 
-	//go through
+	// go through
 	for _, r := range ua {
 		if Authorities[r] >= weight {
 			return true

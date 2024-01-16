@@ -1,12 +1,13 @@
 package server
 
 import (
-	"github.com/go-chi/chi/v5"
-	. "github.com/onsi/gomega"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/go-chi/chi/v5"
+	. "github.com/onsi/gomega"
 )
 
 func TestStatusError_Status(t *testing.T) {
@@ -15,7 +16,6 @@ func TestStatusError_Status(t *testing.T) {
 	e := NewStatusError(500, "some error")
 	Ω(e.Error()).Should(Equal("some error"))
 	Ω(e.Code).Should(Equal(500))
-
 }
 
 func TestHandler(t *testing.T) {
@@ -48,5 +48,4 @@ func TestHandler(t *testing.T) {
 
 	Expect(rr2.Code).To(Equal(http.StatusOK))
 	Expect(strings.TrimSpace(rr2.Body.String())).To(Equal(`{}`))
-
 }

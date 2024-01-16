@@ -3,16 +3,19 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/go-playground/validator/v10"
-	"github.com/pkg/errors"
 	"io"
 	"net/http"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/pkg/errors"
 )
 
 const contentTypeHeader string = "Content-Type"
 
-var jsonContentTypeValue = []string{"application/json; charset=utf-8"}
-var jsContentTypeValue = []string{"application/javascript; charset=utf-8"}
+var (
+	jsonContentTypeValue = []string{"application/json; charset=utf-8"}
+	jsContentTypeValue   = []string{"application/javascript; charset=utf-8"}
+)
 
 // use a single instance of Validate, it caches struct info
 var validate = validator.New()
@@ -57,7 +60,6 @@ func ReadJSON(rq *http.Request, val interface{}) error {
 		return errors.Wrap(err, "Cannot unmarshal request")
 	}
 	return err
-
 }
 
 // Validate validates struct

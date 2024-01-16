@@ -1,13 +1,15 @@
 package server
 
 import (
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
-	"github.com/reportportal/commons-go/v5/commons"
-	"github.com/reportportal/commons-go/v5/conf"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/reportportal/commons-go/v5/commons"
+	"github.com/reportportal/commons-go/v5/conf"
 )
 
 // RpServer represents ReportPortal micro-service instance
@@ -20,7 +22,6 @@ type RpServer struct {
 
 // New creates new instance of RpServer struct
 func New(cfg *conf.ServerConfig, buildInfo *commons.BuildInfo) *RpServer {
-
 	srv := &RpServer{
 		mux:       chi.NewMux(),
 		cfg:       cfg,
@@ -76,9 +77,9 @@ func (srv *RpServer) infoHandler(w http.ResponseWriter, rq *http.Request) {
 		log.Error(err)
 	}
 }
-func (srv *RpServer) healthHandler(w http.ResponseWriter, rq *http.Request) {
 
-	//collect status results
+func (srv *RpServer) healthHandler(w http.ResponseWriter, rq *http.Request) {
+	// collect status results
 	var errs []string
 	for _, hc := range srv.hChecks {
 		if err := hc.Check(); nil != err {

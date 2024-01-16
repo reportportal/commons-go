@@ -1,12 +1,13 @@
 package server
 
-import "net/http"
 import (
 	errs "errors"
 	"fmt"
+	"net/http"
+	"strings"
+
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
-	"strings"
 )
 
 // stackTracer is an error containing stack trace

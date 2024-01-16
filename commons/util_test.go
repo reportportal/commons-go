@@ -2,7 +2,6 @@ package commons
 
 import (
 	"errors"
-	. "github.com/onsi/gomega"
 	"log"
 	"net"
 	"reflect"
@@ -10,6 +9,8 @@ import (
 	"sort"
 	"testing"
 	"time"
+
+	. "github.com/onsi/gomega"
 )
 
 func TestKeySet(t *testing.T) {
@@ -20,7 +21,7 @@ func TestKeySet(t *testing.T) {
 
 	actual := KeySet(mp)
 
-	//make sure they are sorted before validation
+	// make sure they are sorted before validation
 	sort.Strings(actual)
 
 	expected := []string{"one", "two"}
@@ -59,7 +60,6 @@ func TestRetryAttempts(t *testing.T) {
 }
 
 func TestGetLocalIP(t *testing.T) {
-
 	ip := net.ParseIP(GetLocalIP())
 	if ip.IsLoopback() {
 		t.Errorf("IP is loopback: %s", ip.String())

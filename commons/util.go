@@ -41,7 +41,7 @@ func Retry(attempts int, timeout time.Duration, callback func() error) (err erro
 			return nil
 		}
 
-		//time.Sleep(timeout)
+		// time.Sleep(timeout)
 		<-time.After(timeout)
 		log.Println("retrying...")
 	}
